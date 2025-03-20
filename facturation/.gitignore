@@ -1,0 +1,23 @@
+# Fichiers Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Environnement virtuel
+venv/
+env/
+
+# Fichiers de Django
+*.log
+*.pot
+*.pyc
+*.mo
+media/
+staticfiles/
+
+# Fichiers de l'IDE
+.vscode/
+.idea/
