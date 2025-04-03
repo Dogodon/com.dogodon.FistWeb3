@@ -12,8 +12,28 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+###
+import os
+
+#MODEL AUTHENTICATION
+# settings.py
+AUTH_USER_MODEL = 'authentication.User'
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+###
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+
+###
+LOCALE_PATHS =(
+    os.path.join(BASE_DIR, 'locale')
+)
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,8 +45,27 @@ SECRET_KEY = "django-insecure-kcze^k*c!8u9^868*qdj2(h=f55_m8$j1t1d^a2v@%o(6w=m+b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS = []
+############################################################################################
+
+from decouple import config
+
+SECRET_KEY = config('SECRET_KEY', default='fallback-secret-key')
+PAYSTACK_SECRET_KEY = config('PAYSTACK_KEY', default='sk_test_default')
+
+# STATIC_URL = '/static/'
+
+# AUTH_USER_MODEL = 'subscription.User'
+VERIFY_EXPIRE_DAYS = 3
+
+PAYSTACK_SECRET_KEY = config('PAYSTACK_KEY')
+############################################################################################
+BASE_DIR = Path(__file__).resolve().parent.parent
+DEBUG = True
+
 ALLOWED_HOSTS = []
 
+############################################################################################
 
 # Application definition
 
@@ -39,27 +78,41 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
 
-
+        # Application facturation
     'billing',
+        # Application paiement
+    'payments',
+        # Application education
+    'education',
+        # Application souscription
+    'subscription',
+        # Rest Framework
+    'rest_framework',
+    'authentication',
 ]
 
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-]
+# MIDDLEWARE = [
+#     "django.middleware.security.SecurityMiddleware",
+#     "django.contrib.sessions.middleware.SessionMiddleware",
+#     "django.middleware.common.CommonMiddleware",
+#     "django.middleware.csrf.CsrfViewMiddleware",
+#     "django.contrib.auth.middleware.AuthenticationMiddleware",
+#     "django.contrib.messages.middleware.MessageMiddleware",
+#     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+# ]
 
 ROOT_URLCONF = "facturation.urls"
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
+        "DIRS": [
+            BASE_DIR / "templates",  # Dossier global de templates
+            BASE_DIR / "billing" / "templates",  # Dossier de templates pour l'application billing
+            BASE_DIR / "education" / "templates",  # Dossier de templates pour l'application education
+            BASE_DIR / "subscription" / "templates",  # Dossier de templates pour l'application subscription
+
+        ],
+        "APP_DIRS": True,  # Permet à Django de chercher dans les répertoires templates des applications
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -71,18 +124,106 @@ TEMPLATES = [
     },
 ]
 
+# TEMPLATES = [
+#     {
+#         "BACKEND": "django.template.backends.django.DjangoTemplates",
+#         'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Vérifiez que le répertoire 'templates' principal est bien inclus
+
+#         # "DIRS": [],
+#         'DIRS': [
+#             BASE_DIR / 'templates', 
+#             BASE_DIR / 'billing' / 'templates'  # Ajoutez ceci
+#         ],
+        
+
+#         # 'DIRS': [BASE_DIR / 'templates'],  # Ajoutez ceci si vous avez un dossier global de templates
+#         'APP_DIRS': True,  # Assurez-vous que cela est True pour chercher les templates dans les applications
+#         # "DIRS": [TEMPLATES_DIR],
+#         # "APP_DIRS": True,
+#         "OPTIONS": {
+#             "context_processors": [
+#                 "django.template.context_processors.debug",
+#                 "django.template.context_processors.request",
+#                 "django.contrib.auth.context_processors.auth",
+#                 "django.contrib.messages.context_processors.messages",
+#             ],
+#         },
+#     },
+# ]
+
 WSGI_APPLICATION = "facturation.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',  # Utiliser MySQL
+#         'NAME': 'fact_app_better',   # Le nom de la base que tu viens de créer
+#         'USER': 'root',                        # Utilisateur MySQL (ou celui que tu utilises)
+#         'PASSWORD': 'Mariama***17-',        # Mot de passe MySQL
+#         'HOST': 'localhost',                   # Hôte (local ou distant)
+#         'PORT': '3308',                        # Port de MySQL (3306 est le port par défaut)
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',  # Specifies SQLite
+#         'NAME': BASE_DIR / 'db.sqlite3',         # Path to the SQLite database file
+#     }
+# }
+
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # Utiliser MySQL
+        'NAME': 'fact_app_better',   # Le nom de la base que tu viens de créer
+        'USER': 'root',                        # Utilisateur MySQL (ou celui que tu utilises)
+        'PASSWORD': '',        # Mot de passe MySQL
+        'HOST': 'localhost',                   # Hôte (local ou distant)
+        'PORT': '3307',                        # Port de MySQL (3306 est le port par défaut)
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'fact_app_better',  
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3307',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#             'charset': 'utf8mb4',
+#         },
+#     }
+# }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'nom_de_ta_base',  # Remplace par le nom de ta base de données
+#         'USER': 'root',  # Si tu utilises XAMPP, l'utilisateur par défaut est 'root'
+#         'PASSWORD': '',  # Si tu n'as pas défini de mot de passe, laisse vide
+#         'HOST': '127.0.0.1',  # Garde cette valeur
+#         'PORT': '3306',  # Le port MySQL par défaut
+#     }
+# }
+
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+
+
 
 
 # Password validation
@@ -125,3 +266,126 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+###
+STATICFILES_DIRS = [
+    BASE_DIR / 'billing' / 'static',  # Si les fichiers statiques sont dans l'application billing
+
+    # BASE_DIR / "static",
+]
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+##############################################################
+# Utiliser la base de données pour stocker les sessions
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
+# Empêcher Django d'expirer la session trop vite
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Garde la session après fermeture du navigateur
+SESSION_COOKIE_AGE = 86400  # 1 jour (24h)
+SESSION_SAVE_EVERY_REQUEST = True  # Sauvegarde après chaque requête
+###############################################################
+
+USE_I18N = True  # Active l'internationalisation
+USE_L10N = True  # Active la localisation
+USE_TZ = True     # Active la gestion des fuseaux horaires
+
+
+from django.utils.translation import gettext_lazy as _
+languages = [
+    ('en', 'English'),
+    ('fr', 'Français'),
+    ('ar', 'العربية'),
+    # ('ar', 'العربية'),
+]
+
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),  # Chemin où sont stockés les fichiers de traduction
+]
+
+LOGIN_URL = 'admin:login'
+#######################################################################
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+SECURE_SSL_REDIRECT = False
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+SESSION_COOKIE_SECURE = False  # Assure-toi que ce soit False en dev
+CSRF_COOKIE_SECURE = False  # Désactive CSRF sécurisé en HTTP local
+
+#######################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+try:
+    from django.contrib.messages import constants as messages
+    MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-info',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger'
+    }
+except Exception as e:
+    pass    
+
+
+
+
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    
+    ###
+    "django.middleware.locale.LocaleMiddleware",
+
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+# nom superuser : dogodon
+# mdp : d*

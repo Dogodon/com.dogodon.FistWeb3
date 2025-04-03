@@ -1,0 +1,464 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style00.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture Interactive</title>
+    <style>
+
+        /*menu side                    */
+        
+        nav {
+            /* background-color: #333; */
+            width: 200px; /* Largeur du menu */
+            padding: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            
+        }
+
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu > li {
+            position: relative;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            background-color: #a6a6a6;
+        }
+
+        .dropdown-menu {
+            display: none; /* Les menus sont cachés par défaut */
+            background-color: #555;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            width: 100%;
+            transition: max-height 0.3s ease-out; /* Transition pour l'agrandissement */
+            max-height: 0; /* Par défaut, le menu est rétracté */
+            overflow: hidden;
+        }
+
+        .dropdown-menu li a {
+            padding: 8px 20px;
+            width: 100%;
+        }
+
+        /* Ajoute une classe pour l'activation du menu */
+        .dropdown-menu.show {
+            display: block;
+            max-height: 500px; /* Taille maximale quand le menu est déplié */
+        }
+        
+    /* Menu latéral à droite */
+    .side-menu {
+        position: fixed;
+        top: 20px;
+        right: 0;
+        width:150px;
+        background-color: #ffffff;
+        box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 10px 0 0 10px;
+    }
+
+    .side-menu h3 {
+        font-size: 16px;
+        color: rgb(223, 238, 255);
+        margin-bottom: 20px;
+    }
+
+    .side-menu .menu-item {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .side-menu .menu-item:hover {
+        background-color: #e0e0e0;
+    }
+
+
+
+    .menu-item {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+    button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background: #f39c12;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Sous options*/
+.text-with-icon {
+            font-size: 18px; /* Taille du texte */
+            font-family: Arial, sans-serif; /* Police du texte */
+            color: #333; /* Couleur du texte */
+            display: flex; /* Pour aligner l'icône et le texte */
+            align-items: center; /* Centrer verticalement l'icône et le texte */
+        }
+        
+        .text-with-icon i {
+            color: #21639e; /* Icône en rouge vif */
+            margin-right: 8px; /* Espacement entre l'icône et le texte */
+        }
+
+
+
+
+    /* Menu latéral à droite */
+    .side-menu {
+        position: fixed;
+        top: 20px;
+        right: 0;
+        width:150px;
+        background-color: #ffffff;
+        box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 10px 0 0 10px;
+    }
+
+    .side-menu h3 {
+        font-size: 16px;
+        color: rgb(223, 238, 255);
+        margin-bottom: 20px;
+    }
+
+    .side-menu .menu-item {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .side-menu .menu-item:hover {
+        background-color: #e0e0e0;
+    }
+    /*FIn menu droite*/
+
+
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin-left: 0px;
+
+        }
+        .container00 {
+        width: 280px;
+        height: 398px; /* Définir une hauteur fixe */
+        overflow-y: auto; /* Activer le défilement vertical */
+        border: 1px solid #ccc; /* Ajoute une bordure pour la visibilité */
+        padding: 10px;
+        background: #f9f9f9;
+    }
+    /*Case dans le formulaire client DROITE GAUCHE*/
+
+
+#clientPopup-particulier {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    position: absolute;
+    margin-top: 0px;
+
+    border-radius: 5px;
+}
+
+/*Case dans le formulaire client DROITE GAUCHE*/
+#deux-en-un {
+    width: 1040px;
+    height: 800px;
+    display: flex;
+    position: absolute;
+    left: 570px; /* Placer à l'extrême gauche */
+    margin-left: 0px; /* Optionnel, car left gère déjà la position */
+    background: white;
+    padding-top: 0px;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    padding-bottom: 0px;
+    margin-top: 100px;
+    margin-bottom: 0px;
+
+}
+
+    </style>
+</head>
+<body>
+    <!-- <h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Register a new customer' %}</h1> -->
+    <form method="post">
+        {% csrf_token %}
+        <!-- Menu latéral à droite -->
+        <div class="side-menu" style="z-index: 10; width:150px;">
+            <h3 style="color: #21639e;">Menu</h3>
+            <a href="{% url 'home' %}" class="dropdown" style=" padding: 10px;cursor: pointer; color: black; background-color: rgb(255, 255, 173);margin-bottom: 10px;border-radius: 5px;">Revenir</a>
+            
+            <a href="{% url 'ajouter_client_particulier' %}" class="dropdown" style=" padding: 10px;cursor: pointer; color: black; margin-bottom: 10px;border-radius: 5px;"> Particulier</a>
+            <a href="{% url 'ajouter_client_professionnel' %}" class="dropdown" style=" padding: 10px;cursor: pointer; color: black; margin-bottom: 10px;border-radius: 5px;"> Professionnel</a>
+            <a href="{% url 'home' %}" class="dropdown" style=" padding: 10px;cursor: pointer; color: black; margin-bottom: 10px;border-radius: 5px;"> Tres Important</a>
+
+        </div>
+        <div id="deux-en-un" id="clientPopup-particulier"  style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 0px">
+            <h2 style="margin-left: 25px;top:0px; margin-top: 0px;display: flex; flex-direction: row; align-items:center;">ENREGISTRER CE NOUVEAU CLIENT particulier  ?  <button type="submit" class="btn btn-primary" style="background-color:  rgb(255, 255, 173); color:#21639e;"><strong> Oui</strong> </button></h2>
+            
+            <div class="container00" style="width: 1000px; margin-top: 00px; min-height:200px; padding-bottom: 0px;margin-bottom: 0px">
+                <div class="container0"  style="width: 620px;margin-top: 0px;" >
+                    <!-- Partie droite-->
+                    <div id ="case-client-form" style="width:300px; right: 0px;">
+                        <h3 style=" margin-left: 50px;">L'INDIVIDU</h3> 
+                        <div class="row">
+                            <div class="case" style="width: 250px;  height: 32px;">
+                                <input class="input-field" name="civilite" type="text" placeholder="CIVILITE" style="width:240px;">
+                            </div>
+                            <div class="case" style="width:  250px;  height: 32px;">
+                                <input class="input-field" name="nom" type="text" placeholder="NOM" style="width:240px;">
+                            </div>
+                            <div class="case" style="width: 505px;    height: 32px; ">
+                                <input class="input-field" name="ville" style="width:400px;" type="text" placeholder="VILLE" style="width:240px;">
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="row" style="padding: 0px;">
+                            <div class="case" style="width: 250px;  height: 32px;">
+                                <input class="input-field" name="prenom" type="text" placeholder="PRENOM" style="width:240px;">
+                            </div>
+                            <div class="case" style="width:250px;   height: 32px; padding: 0px; margin: 0px;">
+                                <input class="input-field" name="email" type="email" placeholder="EMAIL" style="width:240px;">
+                            </div>
+                            <div class="case" name="fax" style="width: 515px; height: 32px;">
+                                    <select name="sex" type="text"  style="width:407px; background-color: #FEFEDD; border:none">
+
+                                    <option value="M">Masculin</option>
+                                    <option value="F">Féminin</option>
+                                </select>
+                            </div>
+                        </div>       
+                        <div class="row" style="padding: 0px;">
+                            <div style="display: flex; align-items: center; gap: 10px; padding-bottom: 5px;">
+                                <!-- Image du drapeau -->
+                                <img id="flag" src="https://flagcdn.com/w40/tn.png" width="32" height="24" alt="Drapeau">
+                                
+                                <!-- Liste déroulante des pays -->
+                                <select name ="pays" type="text" id="countrySelect" class="input-field" style="width: 206px; height: 32px;">
+                                    <option value="tn" data-dial="+216" selected>Tunisie (+216)</option>
+                                    <option value="ci" data-dial="+225">Côte d'Ivoire (+225)</option>
+                                    <option value="fr" data-dial="+33">France (+33)</option>
+                                    <option value="us" data-dial="+1">États-Unis (+1)</option>
+                                    <option value="gb" data-dial="+44">Royaume-Uni (+44)</option>
+                                    <option value="de" data-dial="+49">Allemagne (+49)</option>
+                                    <option value="ng" data-dial="+234">Nigeria (+234)</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Champ de saisie pour le numéro de téléphone -->
+                            <div class="case" style="width: 250px; height: 32px; padding: 0px; margin: 0px;">
+                                <input id="phoneInput" name="telephone" class="input-field" type="text" placeholder="TELEPHONE" style="width: 240px;" value="+216 ">    
+                            </div>
+
+                            <div class="case"  style="width: 505px; height: 32px;">
+                                <input class="input-field" style="width:400px;" type="text" placeholder="ADRESSE" style="width:490px;">
+                            </div>   <br> <br>
+                        </div> 
+                        <div class="row" style="padding: 0px;">
+                            <div class="case" style="width: 584px; height: 32px;">
+                                <input class="input-field" name="fax" type="text" placeholder="FAX" style="width:508px;">
+                            </div> 
+                            <!-- <div class="case" style="width: 514px; height: 32px;">
+                                <input class="input-field" name="num_tva_intracom" type="text" placeholder="COMPLEMENT D'ADRESSE" style="width:490px;">
+                            </div>     -->
+                            <div class="row" style="padding: 0px;">
+                                <div class="case" style="width: 405px; height: 32px;">
+                                    <input class="input-field" name="code_postal" type="text" placeholder="CODE POSTAL" s style="width: 355px;">
+                            </div>   
+                        </div> 
+                                          
+                    </div>
+                </div>
+            </div>
+
+            <div class="container00" style="width: 1000px; margin-top: 10px;min-height:250px;">
+                <h2>Pourquoi RENSEIGNER cette fiche à 100% ?</h2>
+                <p>
+                    Pour être conforme à la réglementation, il faut que vos informations obligatoires soient renseignées.
+                    Les infos recommandées sont utiles pour mieux connaître le profil de vos clients et facilitent l’accès à certaines options NG-SmartFact.
+                    </p><br>
+                <h4 style="text-align: center;">INFOS OBLIGATOIRES:</h4> <p>Complétez les données suivantes
+                    pour que votre document soit 100% conforme
+                    Raison sociale
+                    Adresse
+                    Code postal
+                    Ville
+                    N° TVA Intracommunautaire</p>                           <br>
+                <h4 style="text-align: center;">INFOS RECOMMANDEES:</h4>  <p>Je vous recommande de compléter les données suivantes
+                    Raison sociale
+                    Adresse
+                    Code postal
+                    Ville
+                    N° TVA Intracommunautaire
+                    Nom du contact
+                    Fonction du contact
+                    Téléphone du contact
+                    Email du contact</p>   <p></p> 
+                    Pour être conforme à la réglementation, il faut que vos informations obligatoires soient renseignées.
+                    Les infos recommandées sont utiles pour mieux connaître le profil de vos clients et facilitent l’accès à certaines options NG-SmartFact.
+                </p>
+            </div>
+    </form>
+
+
+
+
+    
+    
+    <!-- Script pour afficher/cacher le formulaire professionnel -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        // Sélection des éléments
+        let clientToggle = document.getElementById("clientToggle");
+        let proFields = document.getElementById("clientPopup-professionnel");
+        let partFields = document.getElementById("clientPopup-particulier");
+        
+        let select = document.getElementById("countrySelect");
+        let flag = document.getElementById("flag");
+        let phoneInput = document.getElementById("phoneInput");
+    
+        // Fonction pour basculer entre Client professionnel et particulier
+        function toggleClients() {
+            if (clientToggle.checked) {
+                proFields.style.display = "flex";
+                partFields.style.display = "none";
+            } else {
+                proFields.style.display = "none";
+                partFields.style.display = "flex";
+            }
+        }
+    
+    
+        if (clientToggle) {
+            clientToggle.addEventListener("change", toggleClients);
+            toggleClients(); // Initialisation au chargement
+        }
+        
+        // Gestion du changement de pays (Mise à jour du drapeau et du téléphone)
+        if (select) {
+            select.addEventListener("change", function () {
+                let selectedOption = this.options[this.selectedIndex];
+                let countryCode = selectedOption.getAttribute("data-dial");
+                let flagCode = selectedOption.value;
+    
+                flag.src = `https://flagcdn.com/w40/${flagCode}.png`;  // Met à jour le drapeau
+                phoneInput.value = countryCode + " "; // Met à jour le téléphone
+            });
+        }
+        // Désactiver les champs inutiles selon le type de client
+        function toggleFields() {
+            let particulierFields = document.querySelectorAll("#clientPopup-particulier input, #clientPopup-particulier select");
+            let professionnelFields = document.querySelectorAll("#clientPopup-professionnel input, #clientPopup-professionnel select");
+    
+            if (clientToggle.checked) {
+                particulierFields.forEach(field => field.disabled = true);
+                professionnelFields.forEach(field => field.disabled = false);
+            } else {
+                particulierFields.forEach(field => field.disabled = false );
+                professionnelFields.forEach(field => field.disabled = true );
+            }
+        }
+        if (clientToggle) {
+            clientToggle.addEventListener("change", toggleFields);
+            toggleFields(); // Initialisation au chargement
+        }
+    });
+    select.addEventListener("change", function () {
+        let selectedOption = this.options[this.selectedIndex];
+        let countryCode = selectedOption.getAttribute("data-dial");
+        let flagCode = selectedOption.value;
+        
+        flag.src = `https://flagcdn.com/w40/${flagCode}.png`;  // Met à jour le drapeau
+        phoneInput.value = countryCode + " "; // Met à jour le téléphone
+    });
+    </script>   
+    
+    <script>
+        function redirectToAddArticle() {
+            window.location.href = "{% url 'add_article' %}";
+        }
+    </script>
+    
+    <script>
+        // Sélection des éléments
+        const select = document.getElementById("countrySelect");
+        const flag = document.getElementById("flag");
+        const phoneInput = document.getElementById("phoneInput");
+    
+        // Gérer le changement de pays
+        select.addEventListener("change", function () {
+            let selectedOption = this.options[this.selectedIndex]; // Option sélectionnée
+            let countryCode = selectedOption.value; // Code du pays (ex: "tn")
+            let dialCode = selectedOption.getAttribute("data-dial"); // Indicatif téléphonique
+    
+            // Modifier l'URL de l'image du drapeau
+            flag.src = `https://flagcdn.com/w40/${countryCode}.png`;
+    
+            // Mettre à jour le champ du téléphone avec l'indicatif
+            phoneInput.value = dialCode + " ";
+            phoneInput.focus(); // Mettre le curseur après l'indicatif
+        });
+    </script>
+    
+    
+
+    
+    <br><br><br>
+    
+  
+    </body>
+    
+    </html>

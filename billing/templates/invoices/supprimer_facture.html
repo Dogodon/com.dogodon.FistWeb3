@@ -1,0 +1,7 @@
+<h2>Supprimer la facture #{{ facture.id }}</h2>
+<p>Êtes-vous sûr de vouloir supprimer cette facture ?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Supprimer</button>
+</form>
+<a href="{% url 'voir_facture' facture.id %}" class="btn btn-secondary">Annuler</a>

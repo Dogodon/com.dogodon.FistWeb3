@@ -1,0 +1,17 @@
+<h2>Détails de la facture #{{ facture.id }}</h2>
+<table class="table">
+    <tr>
+        <th>Client</th>
+        <td>{{ facture.customer.nom }}</td>
+    </tr>
+    <tr>
+        <th>Total</th>
+        <td>{{ facture.total }} €</td>
+    </tr>
+    <tr>
+        <th>Date de création</th>
+        <td>{{ facture.invoice_date_time|date:"d-m-Y H:i" }}</td>
+    </tr>
+
+</table>
+<a href="{% url 'list_facture' %}" class="btn btn-primary">Retour à la liste</a>

@@ -1,0 +1,181 @@
+<!-- <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Met en surbrillance la réponse sélectionnée */
+        .choice-btn {
+            transition: all 0.3s ease-in-out;
+        }
+        .choice-btn.selected {
+            background-color: #28a745 !important; /* Vert Bootstrap */
+            color: white !important;
+        }
+    </style>
+</head>
+<body>-->
+    <!-- En-tête 
+    <header class="bg-primary text-white p-3"> --><!--
+        <h1>Formation FinanceTracker</h1>
+    </header>
+
+    <div class="container mt-5">
+        <h2>{{ course.title }}</h2>
+        <p>{{ course.description }}</p>-->
+
+        <!-- Formulaire du quiz --><!--
+        <form method="POST">
+            {% csrf_token %}
+            {% for quiz in quizzes %}
+                <div class="mb-4">
+                    <h5>{{ quiz.question }}</h5>
+                    <div class="btn-group-toggle" data-toggle="buttons">
+                        {% for choice in quiz.choice_set.all %}
+                            <label class="btn btn-outline-primary choice-btn">
+                                <input type="radio" name="answers_{{ quiz.id }}" value="{{ choice.choice_text }}" class="d-none">
+                                {{ choice.choice_text }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">Soumettre</button>
+        </form>
+
+        {% if passed %}
+            <div class="alert alert-success mt-3">Félicitations ! Vous avez réussi ce quiz 🎉</div>
+        {% elif submitted %}
+            <div class="alert alert-danger mt-3">Vous devez obtenir au moins 7/10 pour débloquer le prochain cours.</div>
+        {% endif %}-->
+
+        <!-- Navigation entre les cours --><!--
+        <div class="navigation mt-4">
+            {% if previous_course %}
+                <a href="{% url 'course_detail' previous_course.id %}" class="btn btn-primary">Cours Précédent</a>
+            {% endif %}
+            {% if next_course %}
+                <a href="{% url 'course_detail' next_course.id %}" class="btn btn-primary">Cours Suivant</a>
+            {% endif %}
+        </div>
+    </div>-->
+
+    <!-- Footer --><!--
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 Mon Application</p>
+    </footer>-->
+
+    <!-- Script pour gérer la sélection des choix --><!--
+    <script>
+        document.querySelectorAll('.choice-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                let parent = this.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        html, body, .container {
+            background-color: #FF9D2E !important;
+        }
+        /* Force le fond à être blanc */
+        body {
+            background-color: #FF9D2E !important;
+        }
+        /* Surbrillance de la réponse sélectionnée */
+        .choice-btn {
+            transition: all 0.3s ease-in-out;
+        }
+        .choice-btn.selected {
+            background-color: #28a745 !important; /* Vert Bootstrap */
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body style="background-color: #FF9D2E; z-index: -2;">
+    <!-- Navbar --> 
+    <div class="text-right" style="background-color: #FF9D2E; z-index: -2;">
+        <a class="nav-link d-inline-block" href="{% url 'courses' %}" style="color: #ffffff; text-decoration: underline;">
+            Revenir à la liste des cours
+        </a>
+    </div>
+    <header style="background-color: #FF9D2E;">
+        <h1 style="position: absolute; left: 40px; top: 20px;">Formation FinanceTracker</h1>
+    </header><br/>
+
+
+    <div class="container mt-5" style="background-color: #FF9D2E;">
+        <h2>{{ course.title }}</h2>
+        <p>{{ course.description }}</p>
+
+
+        <!-- Messages de réussite ou d'échec -->
+        {% if passed %}
+            <div class="alert alert-success mt-3">Félicitations ! Vous avez réussi ce quiz 🎉</div>
+        {% elif submitted %}
+            <div class="alert alert-danger mt-3" style="background-color: rgb(248, 140, 140);">Vous devez obtenir au moins 1/2 des bonnes réponses pour débloquer le prochain cours.</div>
+        {% elif passed == false and next_course %}
+            <div class="alert alert-danger mt-3" style="background-color: rgb(113, 241, 145);">Vous devez obtenir au moins 1/2 des bonnes réponses pour débloquer le prochain cours.</div>
+        {% endif %}
+        
+        <!-- Formulaire du quiz -->
+        <form method="POST" style="background-color: #FF9D2E;">
+            {% csrf_token %}
+            {% for quiz in quizzes %}
+                <div class="mb-4">
+                    <h5>{{ quiz.question }}</h5>
+                    <div class="btn-group-toggle" data-toggle="buttons" style="color: white;">
+                        {% for choice in quiz.choice_set.all %}
+                            <label class="btn btn-outline-primary choice-btn" style="background-color:#ffffff; border-color: #ff8800; color:rgb(56, 56, 56)">
+                                <input type="radio" name="answers_{{ quiz.id }}" value="{{ choice.choice_text }}" class="d-none" style="color: white;">
+                                {{ choice.choice_text }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">Soumettre</button>
+        </form>
+
+        <div class="btn-group mt-4" role="group" style="background-color: #ffffff;" >
+            {% if previous_course %}
+                <a href="{% url 'course_detail' previous_course.id %}" class="btn btn-primary">Cours Précédent</a>
+            {% endif %}
+            {% if submitted and passed %}
+                <a href="{% url 'course_detail' next_course.id %}" class="btn btn-primary">Cours Suivant</a>
+            {% elif next_course %}
+                <a href="#" class="btn btn-primary">Cours Suivant</a>
+            {% endif %}
+        </div>
+        
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 FinanceTracker Quiz</p>
+    </footer>
+
+    <!-- Script pour gérer la sélection des choix -->
+    <script>
+        document.querySelectorAll('.choice-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                let parent = this.parentElement;
+                parent.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+
+    {% load static %}
+    <!-- Lien vers Bootstrap pour des styles de base -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Lien vers le fichier CSS personnalisé -->
+    <link rel="stylesheet" href="{% static 'css/auth_styles.css' %}">
+
+</head>
+<body style="background-color: #FF9D2E;">
+
+    <div class="container" style="background-color: #ffb560;">
+        <h2>Inscription</h2>
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Champ Nom d'utilisateur -->
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Nom d'utilisateur</label>
+                <input type="text" name="username" id="id_username" class="form-control" 
+                    value="{{ form.username.value|default:'' }}" 
+                    placeholder="Votre nom d'utilisateur">
+                {% if form.username.errors %}
+                    <div class="error">
+                        {% for error in form.username.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Champ Mot de passe -->
+            <div class="mb-3">
+                <label for="id_password1" class="form-label">Mot de passe</label>
+                <input type="password" name="password1" id="id_password1" class="form-control" 
+                placeholder="Votre mot de passe">
+                {% if form.password1.errors %}
+                    <div class="error">
+                        {% for error in form.password1.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Champ Confirmation du mot de passe -->
+            <div class="mb-3">
+                <label for="id_password2" class="form-label">Confirmation du mot de passe</label>
+                <input type="password" name="password2" id="id_password2" class="form-control" 
+                placeholder="Votre mot de passe">
+                {% if form.password2.errors %}
+                    <div class="error">
+                        {% for error in form.password2.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="form-text">Entrez le même mot de passe que précédemment pour vérification.</div>
+            </div>
+
+            <button type="submit" class="btn">S'inscrire</button>
+
+        </form>
+        <div class="form-footer mt-3 text-center">
+            <p>déjà inscrit ? <a href="{% url 'signin' %}">Connectez-vous</a></p>
+        </div>
+    </div>
+
+    <!-- Lien vers Bootstrap JS (facultatif pour les interactions) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- Lien vers le fichier JavaScript personnalisé -->
+    <script src="{% static 'js/auth_scripts.js' %}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style00.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+
+    <h2>Ajouter des articles à la facture</h2>
+
+
+
+
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <div class="container" id="baseRowContainer"></div>
+
+    <div class="side-menu" style=" width:150px;">
+        <h3>Menu</h3>
+        <a href="{% url 'creer_facture_etape1' %}" class="dropdown" style=" padding: 10px;cursor: pointer; color: black; background-color: rgb(255, 255, 173);margin-bottom: 10px;border-radius: 5px;">Revenir</a>
+
+
+        <div class="menu-item" onclick="addBaseRow('produit')">Insérer un produit</div>
+        <div class="menu-item" onclick="addBaseRow('service')">Insérer un service</div>
+        <button type="submit">Ajouter l'article</button>
+
+    </div>
+
+</form>
+
+{% if articles %}
+<ul>
+                        {% for article in articles %}
+                            {% if article.famille == "produit" %}
+                            <div class="d-row">
+                                <label class="image-upload">
+                                    <input type="file" accept="image/*">
+                                    📷
+                                </label>
+                                <div class="rows-container">
+                                    <div class="row">
+                                        <div class="case">
+                                            <div class="label">{{ article.designation }}</div>
+                                            <input class="input-field" type="text" placeholder="Saisir...">
+                                        </div>
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">{{ article.quantite }}</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">{{ article.prix_unitaire }}</div>
+                                            <input class="input-field" type="text" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="width:220px;">
+                                            <div class="label">PRIX DE VENTE HT</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:200px;">
+                                        </div>
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">REMISE</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>                
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">TVA</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="background-color: #ffffff;width: 220px;">
+                                            <div class="label">{{ article.total }}</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:200px;">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="case">
+                                            <div class="label">REFERENCE</div>
+                                            <input class="input-field" type="text" placeholder="Saisir...">
+                                        </div>
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">FAMILLE</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="padding-right: 71px; margin-left: 334px; width: 92px;">
+                                            <div class="label">PRIX D'ACHAT HT</div>
+                                            <input class="input-field" type="text" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="width:220px;">
+                                            <div class="label">TAUX DE MARGE</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:200px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% elif article.famille == "service" %}
+                            <div class="d-row">
+                                <label class="image-upload">
+                                <input type="file" accept="image/*">
+                                📷
+                                </label>
+                                <div class="rows-container">
+                                    <div class="row">
+                                        <div class="case">
+                                            <div class="label">{{ article.designation }}</div>
+                                            <input class="input-field" type="text" placeholder="Saisir...">
+                                        </div>
+                                        <div class="case"  style="width: 70px;">
+                                            <div class="label">{{ article.quantite }}</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">{{ article.prix_unitaire }}</div>
+                                            <input class="input-field" type="text" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="width: 70px;margin-left:242px;">
+                                            <div class="label">REMISE</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>                
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">TVA</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="background-color: #ffffff;width: 220px;">
+                                            <div class="label"> {{ article.total }}</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:200px;">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="case">
+                                            <div class="label">REFERENCE</div>
+                                            <input class="input-field" type="text" placeholder="Saisir...">
+                                        </div>
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">FAMILLE</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% else %}
+                                <ul>
+                                    <li>{{ article.designation }} - {{ article.quantite }} x {{ article.prix_unitaire }} = {{ article.total }}</li>
+                                </ul>
+                            {% endif %} 
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Aucun article ajouté.</p>
+                {% endif %}    
+
+
+    <a href="{% url 'creer_facture_etape1' %}">Retour</a>
+        
+        
+    
+<!-- 
+    <h2>Ajout des articles à la facture: {{ facture.titre }}</h2>
+
+<form id="articleForm">
+    {% csrf_token %}
+    <label>Description:</label>
+    <input type="text" name="description" required>
+
+    <label>Quantité:</label>
+    <input type="number" name="quantite" required>
+
+    <label>Prix Unitaire:</label>
+    <input type="number" step="0.01" name="prix_unitaire" required>
+
+    <button type="submit">Ajouter</button>
+</form>
+
+<h3>Total: <span id="factureTotal">{{ facture.total }}</span> FCFA</h3>
+
+<table>
+    <tr>
+        <th>Description</th>
+        <th>Quantité</th>
+        <th>Prix Unitaire</th>
+        <th>Total</th>
+    </tr>
+    {% for article in articles %}
+    <tr>
+        <td>{{ article.description }}</td>
+        <td>{{ article.quantite }}</td>
+        <td>{{ article.prix_unitaire }}</td>
+        <td>{{ article.total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'creer_facture_etape1' %}">Retour</a>
+
+ -->
+
+
+
+
+
+
+
+<script>
+    document.getElementById("articleForm").onsubmit = function (event) {
+        event.preventDefault();
+        
+        let formData = new FormData(this);
+    
+        fetch("", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Article ajouté !");
+                location.reload();  // Rafraîchir pour voir les articles mis à jour
+            }
+        });
+    };
+</script>
+
+<script>
+    function addBaseRow(type) {
+        const container = document.getElementById('baseRowContainer');
+        const newRow = document.createElement('div');
+        newRow.classList.add('base-row');
+
+        let fields = `
+            <div class="row">
+                <div class="case">
+                    <div class="label">Désignation</div>
+                    <input class="input-field" name="designation" id="designation" type="text" required>
+                </div>
+                <div class="case">
+                    <div class="label">Quantité</div>
+                    <input class="input-field quantity" name="quantite" id="quantite" type="number" min="1" required>
+                </div>
+                <div class="case">
+                    <div class="label">Unité</div>
+                    <input class="input-field" name="unite" type="text">
+                </div>
+                <div class="case">
+                    <div class="label">Prix unitaire HT</div>
+                    <input class="input-field unit-price" name="prix_unitaire" id="prix_unitaire" type="number" step="0.01" required>
+                </div>
+                <div class="case">
+                    <div class="label">Remise (%)</div>
+                    <input class="input-field remise" name="remise" type="number" step="0.01" value="0">
+                </div>
+                <div class="case">
+                    <div class="label">TVA (%)</div>
+                    <input class="input-field tva" name="tva" type="number" step="0.01" value="0">
+                </div>
+                <div class="case">
+                    <div class="label">Montant HT</div>
+                    <input class="input-field montant-ht" name="montant_ht" type="number" readonly>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="case">
+                    <div class="label">Référence</div>
+                    <input class="input-field" name="reference" type="text">
+                </div>
+                <div class="case">
+                    <div class="label">Famille</div>
+                    <select class="input-field" name="famille" required>
+                        <option value="produit" ${type === 'produit' ? 'selected' : ''}>Produit</option>
+                        <option value="service" ${type === 'service' ? 'selected' : ''}>Service</option>
+                    </select>
+                </div>
+        `;
+
+        if (type === 'produit') {
+            fields += `
+                <div class="case">
+                    <div class="label">Prix d'achat HT</div>
+                    <input class="input-field prix-achat-ht" name="prix_achat_ht" type="number" step="0.01">
+                </div>
+                <div class="case">
+                    <div class="label">Taux de marge (%)</div>
+                    <input class="input-field taux-marge" name="taux_marge" type="number" step="0.01" readonly>
+                </div>
+            `;
+        }
+
+        fields += `</div>`; // Fermeture de la div.row
+
+        newRow.innerHTML = `
+            <button type="button" class="delete-btn" onclick="deleteBaseRow(this)">X</button>
+            ${fields}
+        `;
+
+        container.appendChild(newRow);
+        attachEventListeners(newRow);
+    }
+
+    function attachEventListeners(row) {
+        const quantity = row.querySelector(".quantity");
+        const unitPrice = row.querySelector(".unit-price");
+        const montantHT = row.querySelector(".montant-ht");
+        const prixAchatHT = row.querySelector(".prix-achat-ht");
+        const tauxMarge = row.querySelector(".taux-marge");
+
+        function updateMontantHT() {
+            const qty = parseFloat(quantity.value) || 0;
+            const price = parseFloat(unitPrice.value) || 0;
+            montantHT.value = (qty * price).toFixed(2);
+        }
+
+        function updateTauxMarge() {
+            const price = parseFloat(unitPrice.value) || 0;
+            const achatHT = parseFloat(prixAchatHT?.value) || 0;
+            if (achatHT > 0 && tauxMarge) {
+                tauxMarge.value = (((price - achatHT) / achatHT) * 100).toFixed(2);
+            }
+        }
+
+        quantity.addEventListener("input", updateMontantHT);
+        unitPrice.addEventListener("input", () => {
+            updateMontantHT();
+            updateTauxMarge();
+        });
+
+        if (prixAchatHT) {
+            prixAchatHT.addEventListener("input", updateTauxMarge);
+        }
+    }
+
+    function deleteBaseRow(button) {
+        button.closest('.base-row').remove();
+    }
+    </script>
+
+
+    
+
+<!-- <h2>Ajouter des articles</h2>
+<form id="articleForm">
+    {% csrf_token %}
+    <input type="text" name="designation" placeholder="Désignation" required>
+    <input type="number" name="quantity" placeholder="Quantité" required>
+    <input type="number" step="0.01" name="unit_price" placeholder="Prix unitaire" required>
+    <input type="number" step="0.01" name="remise" placeholder="Remise (%)" value="0">
+    <input type="number" step="0.01" name="tva" placeholder="TVA (%)" value="0">
+    <button type="submit">Ajouter</button>
+</form>
+
+<h3>Articles ajoutés</h3>
+<ul id="articles-list">
+    {% for article in articles %}
+        <li>{{ article.designation }} - {{ article.quantity }} x {{ article.unit_price }}€</li>
+    {% endfor %}
+</ul>
+
+<h3>Total : <span id="total">{{ facture.total }}</span>€</h3>
+
+<a href="{% url 'creer_facture_etape1' %}">Retour</a>
+
+<script>
+document.getElementById("articleForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var formData = new FormData(this);
+
+    fetch("{% url 'creer_facture_etape2' %}", {
+        method: "POST",
+        body: formData,
+        headers: { "X-CSRFToken": "{{ csrf_token }}" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById("total").innerText = data.total;
+            location.reload();
+        }
+    });
+});
+</script> -->
+</body>
+</html>

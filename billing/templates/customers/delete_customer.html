@@ -1,0 +1,12 @@
+{% extends 'customers/base_customers.html' %}
+
+{% block content %}
+<h2>Confirmer la suppression</h2>
+<p>Voulez-vous vraiment supprimer le client <strong>{{ customer.nom }} {{ customer.prenom }}</strong> ?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Supprimer</button>
+</form>
+<a href="{% url 'customer_list' %}">Annuler</a>
+{% endblock %}

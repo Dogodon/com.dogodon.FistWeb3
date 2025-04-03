@@ -1,0 +1,363 @@
+<!-- <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceTracker</title>-->
+    <!-- Inclure Bootstrap pour la mise en page -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body> -->
+
+    <!-- Navbar -->
+    <!-- <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">FinanceTracker</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'courses' %}">Cours</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signout' %}">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header> -->
+
+    <!-- Contenu de la page d'accueil -->
+    <!-- <main>
+        <div class="container">
+            <div class="jumbotron mt-4">
+                <h1 class="display-4">Bienvenue sur FinanceTracker</h1>
+                <p class="lead">Votre application pour suivre et gérer vos finances de manière simple et efficace.</p>
+                <hr class="my-4">
+                <p>Connectez-vous pour commencer à gérer vos finances et accéder à des outils éducatifs sur la gestion financière.</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Gérer vos finances</h3>
+                    <p>Suivez vos dépenses, établissez des budgets et atteignez vos objectifs financiers.</p>
+                    <a href="#" class="btn btn-primary">Accéder à votre tableau de bord</a>
+                </div>
+                <div class="col-md-6">
+                    <h3>Apprendre à gérer vos finances</h3>
+                    <p>Explorez nos cours interactifs sur la gestion financière pour améliorer vos compétences.</p>
+                    <a href="#" class="btn btn-secondary">Explorer les cours</a>
+                </div>
+            </div>
+
+            <footer class="mt-5">
+                <p>© 2025 FinanceTracker. Tous droits réservés.</p>
+            </footer>
+        </div>
+    </main> -->
+
+    <!-- Scripts de Bootstrap -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> --> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceTracker</title>
+    <!--Police0:Rubik Mono One Static-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+
+
+    <!--Police1-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+
+    <!--Police2-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    
+    
+    <!--Police3-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&family=Nabla&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+
+    <!--Police4-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&family=Nabla&family=Paytone+One&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+
+
+    <!-- .paytone-one-regular {
+        font-family: "Paytone One", serif;
+        font-weight: 400;
+        font-style: normal;
+      } -->
+    <title>Cadre dans l'arrière-plan</title>
+    <style>
+        .background-frame0 {
+            z-index: -15;
+            position: absolute;
+            display: flex;
+            right: 0;
+            background-color: #FFC130;
+            margin-left: 500px;
+            top: 0;
+            width: 57%; /* Largeur du conteneur */
+            height: 70%; /* Hauteur du conteneur */
+            border: 5px solid #FFC130; /* Couleur de fond */
+            border-bottom-left-radius: 100px;
+            box-sizing: border-box; /* Inclure la bordure dans la taille totale */
+        }
+
+
+        .sidebar {
+        position: absolute;
+        left: 40px;
+        top: 0;
+        width: 600px;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        text-align: left;
+        }
+        
+        .logo {
+
+            width: 100px;
+            height: auto;
+            margin-right: 0;
+            align-self: flex-start; /* Aligner le logo à gauche */
+        }
+        
+        h1 {
+            font-size: 5em;
+            margin: 10px 0;
+            color: #181818;
+            font-family: "Rubik Mono One", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        p {
+            font-size: 2em;
+            color: #0c0c0c;
+        }
+
+        .background-frame1 {
+            z-index: -15;
+            position: absolute;
+            display: flex;
+            right: 0;
+            background-color: #FFAD23;
+            margin-left: 500px;
+            bottom: 0;
+            width: 330px ; /* Largeur du conteneur */
+            height: 110px; /* Hauteur du conteneur */
+            border: 5px solid #FFAD23; /* Couleur de fond */
+            box-sizing: border-box; /* Inclure la bordure dans la taille totale */
+            flex-direction: column; /* Ajouté pour disposer les éléments en colonne */
+            align-items: center; /* Centrer les éléments horizontalement */
+            justify-content:center;
+        }
+
+
+        .background-frame2 {
+            z-index: -16;
+            position: absolute;
+            flex-direction: column; /* Ajouté pour disposer les éléments en colonne */
+
+            display: flex;
+            right: 0;
+            background-color: #FFC823;
+            margin-left: 1000px;
+            bottom: 0;
+            width: 660px ; /* Largeur du conteneur */
+            height: 110px; /* Hauteur du conteneur */
+            border: 5px solid #FFC823; /* Couleur de fond */
+            box-sizing: border-box; /* Inclure la bordure dans la taille totale */
+            flex-direction: column; /* Ajouté pour disposer les éléments en colonne */
+            align-items: center; /* Centrer les éléments horizontalement */
+            justify-content:center;
+        }
+
+        .background-frame3 {
+            z-index: -17;
+            position: absolute;
+            display: flex;
+            right: 0;
+            flex-direction: column; /* Ajouté pour disposer les éléments en colonne */
+            text-align: center;
+
+            background-color: #FFD457;
+            margin-left: 1000px;
+            bottom: 0;
+            width: 990PX ; /* Largeur du conteneur */
+            height: 110px; /* Hauteur du conteneur */
+            border: 5px solid #FFD457; /* Couleur de fond */
+            box-sizing: border-box; /* Inclure la bordure dans la taille totale */
+            flex-direction: column; /* Ajouté pour disposer les éléments en colonne */
+            align-items: center; /* Centrer les éléments horizontalement */
+            justify-content:center;
+        }
+
+        .background-frame4 {
+            z-index: -14;
+            position: absolute;
+            display: flex;
+            flex-direction: column; /* Ajouté pour disposer les éléments en colonne */
+            left: 0;
+            text-align: center;
+            background-color: #FF9A30;
+            bottom: 0;
+            width: 360px; /* Largeur du conteneur */
+            height: 210px; /* Hauteur du conteneur */
+            border: 5px solid #FF9A30; /* Couleur de fond */
+            border-top-right-radius: 500px;
+            border-top-left-radius: 500px;
+            box-sizing: border-box; /* Inclure la bordure dans la taille totale */
+        }
+
+        
+        .sidebar0 {
+        text-align: left;
+        }
+
+    </style>
+
+</head>
+<body>
+    <nav style="align-items: center; display: flex; " >
+        <img src="{% static 'images/logo0.png' %}" alt="Logo" class="logo" style="height: 70px;width: 260px; margin-top: 0px;  margin-left: 60px; align-self: flex-start; padding-top: 0px;">
+
+        <ul style="list-style-type: none; text-align: center; padding-top: 30px; border: 2px solid #FF9D2E; padding: 7px; position: absolute; margin-left:420px;border-radius: 15px; background-color: #FF9D2E;">
+        <li style="display: inline;"><a class="nav-link" href="#" style="text-decoration: none; padding: 30px;color: black; font-size: 13px;    ">ACCEUIL</a></li>
+        <li style="display: inline;"><a href="{% url 'subscription' %}" style="text-decoration: none; padding: 30px;color: black; font-size: 13px;      ">FORMULES</a></li>
+        <li style="display: inline;"><a href="{% url 'courses' %}" style="text-decoration: none; padding: 30px;color: black; font-size: 13px; ">COURS</a></li>
+        <li style="display: inline;"><a href="{% url 'signout' %}" style="text-decoration: none; padding: 30px; color: black; font-size: 13px         ;">DECONNEXION</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="background-frame0">
+            <img src="{% static 'images/9.png' %}" alt="Image d'acceuil" style="margin-left:90px; width:700px; height:510px;">
+        </div>
+
+
+        <div class="sidebar" style="padding-top: 80px;">
+            <h1 style="font-family: Paytone One, serif;
+                font-weight: 400; font-size: 4.5em; 
+                font-style: normal;
+            ">DEVENEZ <br/>MIEUX  VOUS ! </h1>
+            <!-- <h1 style="font-family: Nabla, serif;
+            font-optical-sizing: auto;
+            font-weight: 200;
+            font-style: normal;
+            font-variation-settings:
+            EDPT 100,
+            EHLT 12;font-size: 5em;">DEVENEZ</h1> -->
+            <!-- <h1 style="  font-family: Edu AU VIC WA NT Dots, serif;
+            font-optical-sizing: auto;">DEVENEZ</h1> -->
+            <!-- <h1 style="    font-family: Rubik Mono One, serif;
+                            font-weight: 400;
+                            font-style: normal;">DEVENEZ</h1> -->
+            <!-- <h1 style="  font-family: Amatic SC, serif; font-weight: 700;font-style: normal; word-spacing: 12px;">LE  MEILLEUR  VOUS !</h1> -->
+            <!-- <h1 style="font-family: Paytone One, serif;
+            font-weight: 400;
+            font-style: normal;font-size: 4em;
+        ">MIEUX  VOUS !</h1> -->
+            
+            <p style="  font-family: Edu AU VIC WA NT Dots, serif;
+            font-optical-sizing: auto;
+            font-size: 18px;
+            font-style: normal;">Bienvenue sur Finance Tracker, votre nouveau meilleur ami pour <br/> une gestion financière éclairée! 🌟 Suivez vos dépenses, atteignez  <br/> vos objectifs, et prenez le contrôle de votre avenir financier avec nous.</p>
+        </div>
+
+
+        <div class="background-frame1">
+            <div class="sidebar0" >
+        
+                <h1 style="  font-family:  Paytone One, serif;
+            font-optical-sizing: auto; color: #C30904;
+            
+                font-style: normal;       line-height: 0.5;         font-size: 1.5em; text-align: center;
+                    ">DECOUVREZ</h1>
+                <p style="  font-family: serif;
+                font-optical-sizing: auto; color: #C30904; text-align: center;
+                
+                font-style: normal;               font-size: 18px;
+                ">La finance: des cours sur mésure concus pour vous aider à la comprendre . <a style="color: white;" class="nav-link" href="{% url 'courses' %}">voir</a></p>                        
+
+
+            </div>
+            
+        </div>
+        <div class="background-frame2">
+            <div class="sidebar0" style="position: absolute; margin-right: 330px; " >
+        
+                <h1 style="  font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-optical-sizing: auto; color: #C30904;   line-height: 0.5; margin-top: 15px; text-align: center;
+            
+                font-style: normal;               font-size: 1.5em;
+                    ">ESSAYEZ</h1>
+                <p style="  font-family: serif; text-align: center;
+                font-optical-sizing: auto; color: #C30904;
+                
+                font-style: normal;               font-size: 18px;
+                ">Les quizs sur mesure étape par étape vous<br/> la comprendrez et gagnerez . <a style="color: white;" class="nav-link" href="{% url 'courses' %}">voir</a></p>
+
+            </div>
+    </div>
+
+        <div class="background-frame3">
+            <div class="sidebar0" style="position: absolute; margin-right: 600px; " >
+        
+                <h1 style="  font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-optical-sizing: auto; color: #C30904;   line-height: 0.5; margin-top: 15px; text-align: center;
+            
+                font-style: normal;               font-size: 1.5em;
+                    ">ALLER PLUS</h1>
+                <p style="  font-family: serif;
+                font-optical-sizing: auto; color: #C30904;
+                
+                font-style: normal;               font-size: 18px;
+                ">Loin: Intégrer la communauté des <br/>FinanceTrackerCommunity .</p>
+
+            </div>    
+        </div>
+        <div class="background-frame4">            
+            <h1 style="  font-family: Edu AU VIC WA NT Dots, serif;
+            font-optical-sizing: auto;
+            font-weight: 1;
+            font-style: normal;               font-size: 3.7em;
+                margin: 10px 0;">100% <br/>FREE</h1>
+
+        </div>
+
+
+
+        <!-- <footer class="mt-5">
+            <p>© 2025 FinanceTracker. Tous droits réservés.</p>
+        </footer> -->
+
+    </main>
+
+</body>
+</html>

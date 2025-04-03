@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éléments simplifiés</title>
+    <link rel="stylesheet" href="{% static 'style00.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+
+    
+        .text-with-icon {
+            font-size: 18px; /* Taille du texte */
+            font-family: Arial, sans-serif; /* Police du texte */
+            color: #333; /* Couleur du texte */
+            display: flex; /* Pour aligner l'icône et le texte */
+            align-items: center; /* Centrer verticalement l'icône et le texte */
+        }
+        
+        .text-with-icon i {
+            color: #21639e; /* Icône en rouge vif */
+            margin-right: 8px; /* Espacement entre l'icône et le texte */
+        }
+
+
+
+
+    /* Menu latéral à droite */
+    .side-menu {
+        position: fixed;
+        top: 20px;
+        right: 0;
+        width:150px;
+        background-color: #ffffff;
+        box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 10px 0 0 10px;
+    }
+
+    .side-menu h3 {
+        font-size: 16px;
+        color: rgb(223, 238, 255);
+        margin-bottom: 20px;
+    }
+
+    .side-menu .menu-item {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .side-menu .menu-item:hover {
+        background-color: #e0e0e0;
+    }
+    </style>
+</head>
+<body>
+    <!-- Menu latéral à droite -->
+    <div class="side-menu" style="z-index: 10;">
+        <h3  style="font-size: 16px;
+        color: rgb(223, 238, 255);
+        margin-bottom: 20px;" >Menu</h3>
+            <!-- Bouton de retour -->
+            <a href="{% url 'home' %}"
+            style="background: rgb(255, 233, 135); width: 150px; border: none; padding: 10px; cursor: pointer; 
+                   transition: background 0.3s ease-in-out;" >Retour</a>
+
+
+
+    
+        <div class="menu-item" onclick="addBaseRow('produit')">Nous proposer une formule
+            <div class="text-with-icon">
+                <!-- <i class="fas fa-plus"></i>  -->
+            </div>
+
+        </div>
+        <div class="menu-item" onclick="addBaseRow('service')">Solliciter notre aide pour choisir
+        </div>
+
+
+    </div>
+
+    <div class="container" id="baseRowContainer"> <!-- Les lignes seront ajoutées ici -->
+        <!-- Les lignes seront insérées dynamiquement -->
+    </div>
+
+    <script>        
+
+        // Fonction pour ajouter une ligne générique
+        function addBaseRow(type) {
+            const container = document.getElementById('baseRowContainer');
+            const newRow = document.createElement('div');
+            newRow.classList.add('base-row');
+
+            // Définir les éléments spécifiques à chaque type
+            let fields = '';
+            if (type === 'produit') {
+                fields = `
+                    <div class="d-row">
+                    <label class="image-upload">
+                        <input type="file" accept="image/*">
+                        📷
+                    </label>
+                    <div class="rows-container">
+                        <div class="row">
+                            <div class="case">
+                                <div class="label">DESIGNATION</div>
+                                <input class="input-field" type="text" placeholder="Saisir...">
+                            </div>
+                            <div class="case" style="width: 70px;">
+                                <div class="label">QUANTITE</div>
+                                <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                            </div>
+                            <div class="case" style="width: 70px;">
+                                <div class="label">UNITE</div>
+                                <input class="input-field" type="text" placeholder="Saisir..." style="width:60px;">
+                            </div>
+                            <div class="case" style="width:220px;">
+                                <div class="label">PRIX DE VENTE HT</div>
+                                <input class="input-field" type="number" placeholder="Saisir..." style="width:200px;">
+                            </div>
+                            <div class="case" style="width: 70px;">
+                                <div class="label">REMISE</div>
+                                <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                            </div>                
+                            <div class="case" style="width: 70px;">
+                                <div class="label">TVA</div>
+                                <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                            </div>
+                            <div class="case" style="background-color: #ffffff;width: 220px;">
+                                <div class="label">MONTANT HT</div>
+                                <input class="input-field" type="number" placeholder="Saisir..." style="width:200px;">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="case">
+                                <div class="label">REFERENCE</div>
+                                <input class="input-field" type="text" placeholder="Saisir...">
+                            </div>
+                            <div class="case" style="width: 70px;">
+                                <div class="label">FAMILLE</div>
+                                <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                            </div>
+                            <div class="case" style="padding-right: 71px; margin-left: 334px; width: 92px;">
+                                <div class="label">PRIX D'ACHAT HT</div>
+                                <input class="input-field" type="text" placeholder="Saisir..." style="width:60px;">
+                            </div>
+                            <div class="case" style="width:220px;">
+                                <div class="label">TAUX DE MARGE</div>
+                                <input class="input-field" type="number" placeholder="Saisir..." style="width:200px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+                } else if (type === 'service') {
+                fields = `
+
+                <div class="d-row">
+                <label class="image-upload">
+                <input type="file" accept="image/*">
+                📷
+                </label>
+                <div class="rows-container">
+
+                                    <div class="row">
+                                        <div class="case">
+                                            <div class="label">DESIGNATION</div>
+                                            <input class="input-field" type="text" placeholder="Saisir...">
+                                        </div>
+                                        <div class="case"  style="width: 70px;">
+                                            <div class="label">QUANTITE</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">UNITE</div>
+                                            <input class="input-field" type="text" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="width: 70px;margin-left:242px;">
+                                            <div class="label">REMISE</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>                
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">TVA</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                                        </div>
+                                        <div class="case" style="background-color: #ffffff;width: 220px;">
+                                            <div class="label">MONTANT HT</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:200px;">
+                                        </div>
+                                    </div>
+
+                            
+
+                                    <div class="row">
+                                        <div class="case">
+                                            <div class="label">REFERENCE</div>
+                                            <input class="input-field" type="text" placeholder="Saisir...">
+                                        </div>
+                                        <div class="case" style="width: 70px;">
+                                            <div class="label">FAMILLE</div>
+                                            <input class="input-field" type="number" placeholder="Saisir..." style="width:60px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;}
+
+            // Ajout de la ligne dans le conteneur
+            newRow.innerHTML = `
+                <div class="menu-icon" onclick="toggleMenu(this)">...</div>
+                <div class="menu">
+                    <div class="menu-item" onclick="deleteBaseRow(this)">Supprimer</div>
+                </div>
+                ${fields}`;
+            
+            container.appendChild(newRow);
+        }
+
+
+
+
+
+
+        // Fonction pour afficher/masquer le menu
+        function toggleMenu(icon) {
+            const menu = icon.nextElementSibling;
+            menu.classList.toggle('show');
+        }
+
+        // Fonction pour supprimer une ligne
+        function deleteBaseRow(item) {
+            const baseRow = item.closest('.base-row');
+            baseRow.remove();
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+{% extends "base_services.html" %}
+{% load i18n %}
+{% block content %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture Interactive</title>
+    <link rel="stylesheet" href="{% static 'style00.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container00 {
+        width: 280px;
+        height: 398px; /* Définir une hauteur fixe */
+        overflow-y: auto; /* Activer le défilement vertical */
+        border: 1px solid #ccc; /* Ajoute une bordure pour la visibilité */
+        padding: 10px;
+        background: #f9f9f9;
+    }
+    /*Case dans le formulaire client DROITE GAUCHE*/
+    #deux-en-un {
+        width: 1000px;
+        height: 530px;
+        display: flex;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        border-radius: 5px;
+    }
+    </style>
+</head>
+<body>
+<h1 class="text-capitalize text-center mx-10 bg-dark text-white">{% trans 'Register a new customer' %}</h1>
+<form method="post">
+    {% csrf_token %}
+    <div id="deux-en-un" style="display: flex; flex-direction: column;">
+        <h2 style="text-align: center;">QUELLES SONT LES COORDONNÉES DE VOTRE CLIENT?</h2>
+        <label class="switch" style="text-align: center;">
+            <span class="active">Client professionnel</span>
+            <label class="toggle-switch" style="text-align: center;">
+                <input type="checkbox" name="customer_type_checkbox" id="clientToggle">
+                <span class="slider"></span>
+            </label>
+            <span style="text-align: center;">Client particulier</span>
+            
+            <!-- Champ caché pour envoyer la valeur -->
+            <input type="hidden" name="customer_type" value="particulier" id="hiddenCustomerType">
+            
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </label>
+            <!-- Popup Client Professionnel (visible par défaut) -->
+            <div id="clientPopup-professionnel" style="display: flex; margin-top: 30px;">
+                    <div class="container00" style="width: 680px; display:flex; ">
+                        <div class="container0" style="width: 340px;  margin-left: 40px;">
+                            <div id ="case-client-form">
+                                <h3 style=" margin-left: 50px;">L'ENTREPRISE</h3>
+                                        <div class="case" style="width:250px;  height: 32px;">
+                                            <input class="input-field" name="raison_sociale" type="text" placeholder="RAISON SOCIALE" style="width:240px;">
+                                        </div>      
+                                        <div class="case" style="width: 250px; height: 32px;">
+                                            <input class="input-field" name="siret" type="text" placeholder="SIRET" style="width:240px;">
+                                        </div>
+                            </div>
+                            <div id ="case-client-form">
+                                <br/><h5>ADRESSE</h5 > 
+                                    <div class="case" style="width: 250px; height: 32px;">
+                                        <input class="input-field" name="adresse" type="text" placeholder="ADRESSE" style="width:240px;">
+                                    </div>
+                                    <div class="case" style="width: 250px; height: 32px;">
+                                        <input class="input-field" name="code_postal" type="text" placeholder="CODE POSTAL" style="width:240px;">
+                                    </div>
+                                    <div class="case" style="width: 250px; height: 32px;">
+                                        <input class="input-field"name="ville" type="text" placeholder="VILLE" style="width:240px;">
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px; padding-bottom: 5px;">
+                                        <!-- Image du drapeau -->
+                                        <img id="flag" src="https://flagcdn.com/w40/tn.png" width="32" height="24" alt="Drapeau">
+                                        
+                                        <!-- Liste déroulante des pays -->
+                                        <select name ="pays" type="text" id="countrySelect" class="input-field" style="width: 206px; height: 32px;">
+                                            <option value="tn" data-dial="+216" selected>Tunisie (+216)</option>
+                                            <option value="ci" data-dial="+225">Côte d'Ivoire (+225)</option>
+                                            <option value="fr" data-dial="+33">France (+33)</option>
+                                            <option value="us" data-dial="+1">États-Unis (+1)</option>
+                                            <option value="gb" data-dial="+44">Royaume-Uni (+44)</option>
+                                            <option value="de" data-dial="+49">Allemagne (+49)</option>
+                                            <option value="ng" data-dial="+234">Nigeria (+234)</option>
+                                        </select>
+                                    </div>
+                            </div>
+                            <div id ="case-client-form">
+                                <br/><h5>ADRESSE</h5 >
+                                    <div class="case" style="width: 250px; height: 32px;">
+                                        <input class="input-field" name="num_tva_intracom" type="text" placeholder="N° TVA INTRACOMMUNAUTAIRE" style="width:240px;">
+                                    </div>
+                                    <div class="case" style="width: 250px; height: 32px;">
+                                        <input class="input-field" name="fax" type="text" placeholder="FAX" style="width:240px;">
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="container0"  style="width: 340px; margin-left: 30px;" >
+                            <!-- Partie droite-->
+                            <div id ="case-client-form" style="width:300px; right: 0px;">
+                                <h3 style=" margin-left: 50px;">CONTACT</h3>
+                                <div class="row">
+                                    <div class="case" style="width: 90px;  height: 32px;">
+                                        <input class="input-field" name="civilite" type="text" placeholder="CIVILITE">
+                                    </div>
+                                    <div class="case" style="width:  138px;  height: 32px;">
+                                        <input class="input-field" name="nom" type="text" placeholder="NOM" style="width:130px;">
+                                    </div>
+                                </div>
+                                <div class="row" style="padding: 0px;">
+                                    <div class="case" style="width: 138px;  height: 32px;">
+                                        <input class="input-field" name="prenom" type="text" placeholder="PRENOM" style="width:60px;">
+                                    </div>
+                                    <div class="case" style="width:90px;   height: 32px; padding: 0px; margin: 0px;">
+                                        <input class="input-field" name="fonction" type="text" placeholder="FONCTION" style="width:80px;">
+                                    </div>
+                                </div><br>          
+                                <div class="case" style="width:250px;  height: 32px;">
+                                    <input class="input-field" name="telephone_mobile" type="text" placeholder="TELEPHONE MOBILE" style="width:240px;">
+                                </div><br>   
+                                <div class="case"  style="width: 250px;">
+                                    <select name="sex" type="text">
+                                        <option value="M">Masculin</option>
+                                        <option value="F">Féminin</option>
+                                    </select>
+                                </div>
+                                <div class="case" style="width: 250px; height: 32px;">
+                                    <input class="input-field" name="telephone" type="text" placeholder="TELEPHONE FIXE" style="width:240px;">
+                                </div><br>
+                                <div class="case" style="width: 250px; height: 32px;">
+                                    <input class="input-field" name="email" type="email" placeholder="EMAIL" style="width:240px;">
+                                </div>                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container00">
+                        <h2>Pourquoi renseigner cette fiche à 100% ?</h2>
+                        <p>
+                            Pour être conforme à la réglementation, il faut que vos informations obligatoires soient renseignées.
+                            Les infos recommandées sont utiles pour mieux connaître le profil de vos clients et facilitent l’accès à certaines options NG-SmartFact.
+                            <br><br>
+                            Pour être conforme à la réglementation, il faut que vos informations obligatoires soient renseignées.
+                            Les infos recommandées sont utiles pour mieux connaître le profil de vos clients et facilitent l’accès à certaines options NG-SmartFact.
+                            <br><br>
+                            Pour être conforme à la réglementation, il faut que vos informations obligatoires soient renseignées.
+                            Les infos recommandées sont utiles pour mieux connaître le profil de vos clients et facilitent l’accès à certaines options NG-SmartFact.
+                        </p>
+                    </div>
+            </div>
+    
+            <!-- Popup Client Particulier (caché par défaut) -->
+            <div id="clientPopup-particulier" style="display: none;margin-top: 30px;">
+                    <div class="container00" style="width: 680px; display:flex; ">
+                        <div class="container0"  style="width: 620px; margin-left: 30px;" >
+                            <!-- Partie droite-->
+                            <div id ="case-client-form" style="width:300px; right: 0px;">
+                                <h3 style=" margin-left: 50px;">L'INDIVIDU</h3> 
+                                <div class="row">
+                                    <div class="case" style="width: 250px;  height: 32px;">
+                                        <input class="input-field" name="civilite" type="text" placeholder="CIVILITE" style="width:240px;">
+                                    </div>
+                                    <div class="case" style="width:  250px;  height: 32px;">
+                                        <input class="input-field" name="nom" type="text" placeholder="NOM" style="width:240px;">
+                                    </div>
+                                </div>
+                                <div class="row" style="padding: 0px;">
+                                    <div class="case" style="width: 250px;  height: 32px;">
+                                        <input class="input-field" name="prenom" type="text" placeholder="PRENOM" style="width:240px;">
+                                    </div>
+                                    <div class="case" style="width:250px;   height: 32px; padding: 0px; margin: 0px;">
+                                        <input class="input-field" name="email" type="email" placeholder="EMAIL" style="width:240px;">
+                                    </div>
+                                </div>       
+                                <div class="row" style="padding: 0px;">
+                                    <div style="display: flex; align-items: center; gap: 10px; padding-bottom: 5px;">
+                                        <!-- Image du drapeau -->
+                                        <img id="flag" src="https://flagcdn.com/w40/tn.png" width="32" height="24" alt="Drapeau">
+                                        
+                                        <!-- Liste déroulante des pays -->
+                                        <select name ="pays" type="text" id="countrySelect" class="input-field" style="width: 206px; height: 32px;">
+                                            <option value="tn" data-dial="+216" selected>Tunisie (+216)</option>
+                                            <option value="ci" data-dial="+225">Côte d'Ivoire (+225)</option>
+                                            <option value="fr" data-dial="+33">France (+33)</option>
+                                            <option value="us" data-dial="+1">États-Unis (+1)</option>
+                                            <option value="gb" data-dial="+44">Royaume-Uni (+44)</option>
+                                            <option value="de" data-dial="+49">Allemagne (+49)</option>
+                                            <option value="ng" data-dial="+234">Nigeria (+234)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <!-- Champ de saisie pour le numéro de téléphone -->
+                                    <div class="case" style="width: 250px; height: 32px; padding: 0px; margin: 0px;">
+                                        <input id="phoneInput" name="telephone" class="input-field" type="text" placeholder="TELEPHONE" style="width: 240px;" value="+216 ">    
+                                    </div>
+                                    <div class="case" name="fax" style="width: 514px; height: 32px;">
+                                        <select name="sex" type="text" style="width:490px;" placeholder="sex">
+                                            <option value="M">Masculin</option>
+                                            <option value="F">Féminin</option>
+                                        </select>
+                                    </div> <br> <br>
+                                </div> 
+                                    
+                                <div class="case" style="width: 514px; height: 32px;">
+                                    <input class="input-field" name="fax" type="text" placeholder="FAX" style="width:490px;">
+                                </div> <br> <br>  
+                                <div class="case" style="width: 514px; height: 32px;">
+                                    <input class="input-field" type="text" placeholder="ADRESSE" style="width:490px;">
+                                </div>  
+                                <!-- <div class="case" style="width: 514px; height: 32px;">
+                                    <input class="input-field" name="num_tva_intracom" type="text" placeholder="COMPLEMENT D'ADRESSE" style="width:490px;">
+                                </div>     -->
+                                <div class="row" style="padding: 0px;">
+                                    <div class="case" style="width: 250px;  height: 32px;">
+                                        <input class="input-field" name="code_postal" type="text" placeholder="CODE POSTAL" style="width:240px;">
+                                    </div>
+                                    <div class="case" style="width:250px;   height: 32px; padding: 0px; margin: 0px;">
+                                        <input class="input-field" name="ville" type="text" placeholder="VILLE" style="width:240px;">
+                                    </div>
+                                </div>   
+                                                  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container00">
+                        <h2>Pourquoi RENSEIGNER cette fiche à 100% ?</h2>
+                        <p>
+                            Pour être conforme à la réglementation, il faut que vos informations obligatoires soient renseignées.
+                            Les infos recommandées sont utiles pour mieux connaître le profil de vos clients et facilitent l’accès à certaines options NG-SmartFact.
+                            </p><br>
+                        <h4 style="text-align: center;">INFOS OBLIGATOIRES:</h4> <p>Complétez les données suivantes
+                            pour que votre document soit 100% conforme
+                            Raison sociale
+                            Adresse
+                            Code postal
+                            Ville
+                            N° TVA Intracommunautaire</p>                           <br>
+                        <h4 style="text-align: center;">INFOS RECOMMANDEES:</h4>  <p>Je vous recommande de compléter les données suivantes
+                            Raison sociale
+                            Adresse
+                            Code postal
+                            Ville
+                            N° TVA Intracommunautaire
+                            Nom du contact
+                            Fonction du contact
+                            Téléphone du contact
+                            Email du contact</p>   <p></p> 
+                            Pour être conforme à la réglementation, il faut que vos informations obligatoires soient renseignées.
+                            Les infos recommandées sont utiles pour mieux connaître le profil de vos clients et facilitent l’accès à certaines options NG-SmartFact.
+                        </p>
+                    </div>
+                </div>
+    </div>
+</form>
+<script>
+    const clientToggle = document.getElementById('clientToggle');
+    const hiddenInput = document.getElementById('hiddenCustomerType');
+
+    clientToggle.addEventListener('change', function() {
+        if (clientToggle.checked) {
+            hiddenInput.value = 'professionnel';  // Si coché, la valeur devient "professionnel"
+        } else {
+            hiddenInput.value = 'particulier';  // Si décoché, la valeur reste "particulier"
+        }
+    });
+</script>
+
+
+<!-- Script pour afficher/cacher le formulaire professionnel -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Sélection des éléments
+    let clientToggle = document.getElementById("clientToggle");
+    let proFields = document.getElementById("clientPopup-professionnel");
+    let partFields = document.getElementById("clientPopup-particulier");
+    
+    let select = document.getElementById("countrySelect");
+    let flag = document.getElementById("flag");
+    let phoneInput = document.getElementById("phoneInput");
+
+    // Fonction pour basculer entre Client professionnel et particulier
+    function toggleClients() {
+        if (clientToggle.checked) {
+            proFields.style.display = "none";
+            partFields.style.display = "flex";
+        } else {
+            proFields.style.display = "flex";
+            partFields.style.display = "none";
+        }
+    }
+
+
+    if (clientToggle) {
+        clientToggle.addEventListener("change", toggleClients);
+        toggleClients(); // Initialisation au chargement
+    }
+    
+    // Gestion du changement de pays (Mise à jour du drapeau et du téléphone)
+    if (select) {
+        select.addEventListener("change", function () {
+            let selectedOption = this.options[this.selectedIndex];
+            let countryCode = selectedOption.getAttribute("data-dial");
+            let flagCode = selectedOption.value;
+
+            flag.src = `https://flagcdn.com/w40/${flagCode}.png`;  // Met à jour le drapeau
+            phoneInput.value = countryCode + " "; // Met à jour le téléphone
+        });
+    }
+    // Désactiver les champs inutiles selon le type de client
+    function toggleFields() {
+        let particulierFields = document.querySelectorAll("#clientPopup-particulier input, #clientPopup-particulier select");
+        let professionnelFields = document.querySelectorAll("#clientPopup-professionnel input, #clientPopup-professionnel select");
+
+        if (clientToggle.checked) {
+            particulierFields.forEach(field => field.disabled = false);
+            professionnelFields.forEach(field => field.disabled = true);
+        } else {
+            particulierFields.forEach(field => field.disabled = true );
+            professionnelFields.forEach(field => field.disabled = false );
+        }
+    }
+    if (clientToggle) {
+        clientToggle.addEventListener("change", toggleFields);
+        toggleFields(); // Initialisation au chargement
+    }
+});
+select.addEventListener("change", function () {
+    let selectedOption = this.options[this.selectedIndex];
+    let countryCode = selectedOption.getAttribute("data-dial");
+    let flagCode = selectedOption.value;
+    
+    flag.src = `https://flagcdn.com/w40/${flagCode}.png`;  // Met à jour le drapeau
+    phoneInput.value = countryCode + " "; // Met à jour le téléphone
+});
+</script>   
+
+<script>
+    function redirectToAddArticle() {
+        window.location.href = "{% url 'add_article' %}";
+    }
+</script>
+
+<script>
+    // Sélection des éléments
+    const select = document.getElementById("countrySelect");
+    const flag = document.getElementById("flag");
+    const phoneInput = document.getElementById("phoneInput");
+
+    // Gérer le changement de pays
+    select.addEventListener("change", function () {
+        let selectedOption = this.options[this.selectedIndex]; // Option sélectionnée
+        let countryCode = selectedOption.value; // Code du pays (ex: "tn")
+        let dialCode = selectedOption.getAttribute("data-dial"); // Indicatif téléphonique
+
+        // Modifier l'URL de l'image du drapeau
+        flag.src = `https://flagcdn.com/w40/${countryCode}.png`;
+
+        // Mettre à jour le champ du téléphone avec l'indicatif
+        phoneInput.value = dialCode + " ";
+        phoneInput.focus(); // Mettre le curseur après l'indicatif
+    });
+</script>
+
+
+<script>
+    // Sélectionner les éléments
+    // const select = document.getElementById("countrySelect");
+    // const flag = document.getElementById("flag");
+
+    // Ajouter un événement sur le changement de pays
+    select.addEventListener("change", function () {
+        let countryCode = this.value; // Récupérer la valeur sélectionnée (ex: "fr", "us", etc.)
+        flag.src = `https://flagcdn.com/w40/${countryCode}.png`; // Modifier l'URL de l'image
+    });
+</script>
+
+
+<script>
+    document.getElementById("deux-en-un").style.display = "block";
+    document.getElementById("clientSelect").addEventListener("change", function() {
+        
+        if (this.value === "new") {
+            document.getElementById("deux-en-un").style.display = "block";
+        }
+    });
+
+
+</script>
+
+<br><br><br>
+
+{% endblock content %}
+</body>
+
+</html>

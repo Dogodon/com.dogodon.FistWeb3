@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>base.html</title>
+    <link rel="stylesheet" href="{% static 'style_home.css' %}">
+
+    <script defer src="script.js"></script>
+    <!-- Lien correct pour Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+.social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.social-icon i {
+    font-size: 30px;
+    transition: color 0.3s ease;
+}
+
+.social-icon .facebook {
+    color: #333 !important; /* Couleur de Facebook */
+}
+
+.social-icon .youtube {
+    color: #333 !important; /* Couleur de YouTube */
+}
+
+.social-icon .instagram {
+    color: #333 !important; /* Couleur d'Instagram */
+}
+
+.social-icon .twitter {
+    color: #333 !important; /* Couleur de Twitter */
+}
+
+
+
+
+
+
+
+
+
+.icon-buttons i {
+        cursor: pointer;
+        font-size: 18px;
+        padding: 5px;
+    }
+
+    .icon-buttons i:hover {
+        color: #007bff;
+    }
+/*************************** */
+/* .social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.social-icon i {
+    font-size: 30px;
+    transition: color 0.3s ease;
+}
+
+.social-icon .facebook {
+    color: #3b5998 !important; 
+}
+
+.social-icon .youtube {
+    color: #FF0000 !important;
+}
+
+.social-icon .instagram {
+    color: #E4405F !important; 
+}
+
+.social-icon .twitter {
+    color: #1DA1F2 !important; 
+}
+
+.social-icon i:hover {
+    color: #0073e6 !important;
+} */
+</style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Brand<span>Logo</span></div>
+    
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="#">Accueil</a></li>
+                <li><a  href="{% url 'services' %}">Services</a></li>
+
+                <li><a href="{% url 'subscription' %}">Formules</a></li>
+                <li><a href="{% url 'courses' %}">Plus Loin </a></li>
+            </ul>
+        </nav>
+    
+
+        <div class="user-icon">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </header>
+    <div class="sous-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                  {% trans 'More options' %}
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'add_article' %}">{% trans 'Add article' %}</a>
+                  <a class="dropdown-item" href="{% url 'creer_facture_etape1' %}">{% trans 'creer_facture_etape1' %}</a>
+    
+                  <a class="dropdown-item" href="{% url 'add-customer' %}">{% trans 'Add customer' %}</a>
+                  <a class="dropdown-item" href="#">{% trans 'Add admin' %}</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">{% trans 'Statistics' %}</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        <p style="padding-left: 72px">NG-Multimedia | Tel: +216 94663330 | Mail: contact@ng-multimedia.com | Adresse: Menzah9 - Tunis</p>
+        <!-- <div class="social-icons" style="margin-left: 730px;">
+            <a href="https://www.facebook.com/ng.multimedia.tunisia/                         " target="_blank" class="social-icon">
+                <i class="fab fa-facebook-f"></i> Icône Facebook 
+            </a>
+            <a href="https://www.youtube.com/ngmultimedia-pro                               " target="_blank" class="social-icon">
+                <i class="fab fa-youtube"></i> Icône YouTube
+            </a>
+            <a href="https://www.instagram.com/ng_multimedia_sarl/                            " target="_blank" class="social-icon">
+                <i class="fab fa-instagram"></i>  Icône Instagram 
+            </a>
+            <a href="https://x.com/i/flow/login?redirect_after_login=%2FNgMultimediaTn      " target="_blank" class="social-icon">
+                <i class="fab fa-twitter"></i>Icône Twitter
+            </a>
+        </div> -->
+        <div class="social-icons" style="margin-left: 20px;">
+            <div class="social-icon">
+                <a href="https://www.facebook.com" target="_blank">
+                    <i class="fab fa-facebook facebook"></i>
+                </a>
+            </div>
+            <div class="social-icon">
+                <a href="https://www.youtube.com" target="_blank">
+                    <i class="fab fa-youtube youtube"></i>
+                </a>
+            </div>
+            <div class="social-icon">
+                <a href="https://www.instagram.com" target="_blank">
+                    <i class="fab fa-instagram instagram"></i>
+                </a>
+            </div>
+            <div class="social-icon">
+                <a href="https://www.twitter.com" target="_blank">
+                    <i class="fab fa-twitter twitter"></i>
+                </a>
+            </div>
+        </div>
+        
+    </div>
+
+
+
+    {% block content %}
+    <main>
+        <section style="height: 200vh; padding: 20px;">
+            <h1>Bienvenue sur notre site</h1>
+        </section>
+    </main>
+    <!-- Ici, Django insère le contenu de index.html -->
+    {% endblock content %}
+
+</body>
+</html>
