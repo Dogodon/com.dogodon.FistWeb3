@@ -8,9 +8,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #FF9D2E; z-index: -2;">
+<body style="background-color: #d4d4d4; z-index: -2;">
     <div class="container mt-5" >
-        <h2 class="text-center" style="padding-bottom: 50px;">Cours d'Éducation Financière</h2>
+        <h2 class="text-center" style="padding-bottom: 50px;">Alors, C'est QUOI LA FACTURATION ?</h2>
 
         <div id="coursesCarousel" class="carousel slide" data-ride="carousel" >
             <div class="carousel-inner">
@@ -22,7 +22,7 @@
                                 <h5 class="card-title">{{ course.title }}</h5>
                                 <p class="card-text">{{ course.description }}</p>
                                 {% if course.is_unlocked %}
-                                    <a href="{% url 'course_detail' course.id %}" class="btn btn-primary" style="background-color: #ff8902; border-color: #ff8902;">Accéder</a>
+                                    <a href="{% url 'course_detail' course.id %}" class="btn btn-primary" style="background-color: #6547ff; border-color: #262250;">Accéder</a>
                                 {% else %}
                                     <button class="btn btn-secondary" disabled>🔒 Verrouillé</button>
                                 {% endif %}

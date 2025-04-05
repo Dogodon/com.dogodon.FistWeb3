@@ -110,6 +110,8 @@ class AddCustomerView(LoginRequiredSuperuserMixin, View):
             prenom = request.POST.get('prenom', '').strip()
             email = request.POST.get('email', '').strip()
             sex = request.POST.get('sex', '')
+            zone = request.POST.get('zone', '')
+
             telephone = request.POST.get('telephone', '').strip()
             adresse = request.POST.get('adresse', '').strip()
             code_postal = request.POST.get('code_postal', '').strip()
@@ -135,7 +137,9 @@ class AddCustomerView(LoginRequiredSuperuserMixin, View):
                 nom=nom,
                 prenom=prenom,
                 email=email,
-                sex=sex,
+                sex=sex,                
+                zone=zone,
+
                 telephone=telephone,
                 adresse=adresse,
                 code_postal=code_postal,
@@ -2305,4 +2309,148 @@ def supprimer_facture(request, facture_id):
         return redirect('list_facture')
     
     return render(request, 'invoices/supprimer_facture.html', {'facture': facture})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#1 DES FACTURES
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Invoice
+from .serializers import InvoiceSerializer
+from django.shortcuts import get_object_or_404
+
+
+class InvoiceDetailAPIView(APIView):
+    def get(self, request, pk):
+        invoice = get_object_or_404(Invoice, pk=pk)
+        serializer = InvoiceSerializer(invoice)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+#TOUTES LES FACTURES
+from rest_framework.generics import ListAPIView
+from .models import Invoice
+from .serializers import InvoiceSerializer
+
+
+class InvoiceListAPIView(ListAPIView):
+    queryset = Invoice.objects.all().order_by('-invoice_date_time')
+    serializer_class = InvoiceSerializer
+
+
 

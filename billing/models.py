@@ -17,7 +17,25 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from django.conf import settings
+PARTICULIER = 'particulier'
+PROFESSIONNEL = 'professionnel'
 
+CUSTOMER_TYPE_CHOICES = [
+    (PARTICULIER, 'Particulier'),
+    (PROFESSIONNEL, 'Professionnel'),
+]
+
+SEX_TYPES = (
+    ('M', _('Masculin')),
+    ('F', _('Féminin')),
+)
+RURALE = 'rurale'
+URBAINE = 'urbaine'
+
+ZONE_TYPE_CHOICES = [
+    (RURALE, 'rurale'),
+    (URBAINE, 'urbaine'),
+]
 class Customer(models.Model):
     """
     Modèle Customer : gère les clients professionnels et particuliers.
@@ -35,6 +53,12 @@ class Customer(models.Model):
         ('M', _('Masculin')),
         ('F', _('Féminin')),
     )
+    RURALE = 'rurale'
+    URBAINE = 'urbaine'
+    ZONE_TYPE_CHOICES = [
+        (RURALE, 'rurale'),
+        (URBAINE, 'urbaine'),
+    ]
 
     # Champs communs à tous les clients
     customer_type = models.CharField(
@@ -45,6 +69,8 @@ class Customer(models.Model):
     prenom = models.CharField(max_length=132, blank=True, null=True)
     email = models.EmailField(unique=True)
     sex = models.CharField(max_length=1, choices=SEX_TYPES, default='M')
+    zone = models.CharField(max_length=10, choices=ZONE_TYPE_CHOICES, default='RURALE')
+
     telephone = models.CharField(max_length=20, blank=True, null=True)
     adresse = models.CharField(max_length=255, blank=True, null=True)
     code_postal = models.CharField(max_length=16, blank=True, null=True)

@@ -187,7 +187,7 @@ WSGI_APPLICATION = "facturation.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Utiliser MySQL
-        'NAME': 'fact_app_better',   # Le nom de la base que tu viens de créer
+        'NAME': 'facturation_db',   # Le nom de la base que tu viens de créer
         'USER': 'root',                        # Utilisateur MySQL (ou celui que tu utilises)
         'PASSWORD': '',        # Mot de passe MySQL
         'HOST': 'localhost',                   # Hôte (local ou distant)

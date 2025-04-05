@@ -5,6 +5,16 @@ from .views import creer_facture_etape1, creer_facture_etape2,download_pdf,downl
 
 
 
+
+
+
+
+
+#SERIALIZERS DATASET!!
+from .views import InvoiceDetailAPIView,InvoiceListAPIView
+
+
+
 urlpatterns = [ 
     path('', views.HomeView.as_view(), name='home'),
     ###
@@ -82,6 +92,48 @@ urlpatterns = [
     path('services/ajouter_client/', views.AjouterClient.as_view(), name='ajouter_client'),
 
     path('load-content/<str:page>/', views.load_content, name='load_content'),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    path('invoice/<int:pk>/', InvoiceDetailAPIView.as_view(), name='invoice-detail'),
+    path('invoices/', InvoiceListAPIView.as_view(), name='invoice-list'),  # <- Ajouté ici
+
 
 ]
 
