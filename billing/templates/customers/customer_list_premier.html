@@ -1,0 +1,182 @@
+{% extends 'base_services.html' %}
+
+{% block content %}
+<style>
+    .table-striped tbody tr:nth-child(odd) {
+    background-color: #21639e !important;
+    color: white !important;
+    border: 2px solid #21639e;  /* Bordure de couleur verte autour de chaque cellule */
+
+}
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: white !important;
+    color: black !important;
+}
+table {
+    width: 80%;
+    border-collapse: separate; /* Permet d'avoir des espacements entre les colonnes */
+    border-spacing: 30px 0;     /* 10px entre les colonnes, pas d'espace entre les lignes */
+}
+
+th, td {
+    padding: 0px; /*  Ajoute un espace intérieur */
+    margin: 0px;
+    size: 10px;
+    font-size: 12px; /* Réduit la taille de la police pour toute la table */
+    text-align: left;  /* Alignement à gauche du texte */
+
+
+}
+th {
+    background-color: #f2f2f2;  /* Ajoute une couleur de fond aux en-têtes */
+    font-weight: bold;  /* Mets les en-têtes en gras */
+}
+th {
+    background-color: #f2f2f2;  /* Ajoute une couleur de fond aux en-têtes */
+    font-weight: bold;  /* Mets les en-têtes en gras */
+    border-bottom: 2px solid #21639e;  /* Bordure inférieure plus foncée pour les en-têtes */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;  /* Ajoute une couleur de fond aux lignes paires */
+    border-radius: 10px;
+
+}
+
+tr:hover {
+    background-color: #21639e;  /* Change la couleur de fond au survol */
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<div class="container mt-4">
+    <h2>Liste des clients</h2>
+
+    <!-- Formulaire de recherche -->
+    <form method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Rechercher un client..." value="{{ request.GET.search }}">
+            <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+        </div>
+    </form>
+
+    <!-- Options de téléchargement CSV et PDF -->
+    <div class="mb-3">
+        <a href="{% url 'download_csv' %}" class="btn btn-outline-success btn-sm">
+            <i class="fas fa-download"></i> Télécharger CSV
+        </a>
+        <a href="{% url 'download_pdf' %}" class="btn btn-outline-danger btn-sm">
+            <i class="fas fa-file-pdf"></i> Télécharger PDF
+        </a>
+    </div>
+
+    <!-- Tableau des clients -->
+    <table style="margin-top: 20px;" class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>Ville</th>
+                <th>Pays</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in page_obj %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td><strong>{{ customer.nom }} {{ customer.prenom }}</strong></td>
+                <td>{{ customer.email }}</td>
+                <td>
+                    <span class="badge {% if customer.customer_type == 'professionnel' %} bg-primary {% else %} bg-secondary {% endif %}">
+                        {{ customer.get_customer_type_display }}
+                    </span>
+                </td>
+                <td>{{ customer.ville }}</td>
+                <td>{{ customer.pays }}</td>
+                <td class="text-center" style="display: flex; flex-direction: row;">
+                    <a href="{% url 'edit_customer' customer.id %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-edit"></i> 
+                    </a>
+                    <a href="{% url 'delete_customer' customer.id %}" class="btn btn-outline-danger btn-sm">
+                        <i class="fas fa-trash-alt"></i> 
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center text-muted">
+                    <i class="fas fa-info-circle"></i> Aucun client trouvé.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav style="margin-top: 130px;">
+        <ul class="pagination justify-content-center" style="list-style: none; display: flex; flex-direction: row;">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" title="Premier">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" title="Précédent">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" title="Suivant">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" title="Dernier">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+    
+    <!-- <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">« Premier</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">‹ Précédent</a>
+                </li>
+            {% endif %}
+            
+            <li class="page-item active">
+                <span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+            </li>
+            
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant ›</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Dernier »</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav> -->
+
+{% endblock %}

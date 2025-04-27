@@ -26,3 +26,6 @@ admin.site.site_title = _("NG-SmartFact")
 admin.site.site_header = _("NG-SmartFact")
 admin.site.index_title = _("NG-SmartFact")
 
+class AdminAvoir(admin.ModelAdmin):
+    list_display = ('customer', 'save_by', 'avoir_date_time', 'total', 'last_updated_date')    
+admin.site.register(Avoir, AdminAvoir)

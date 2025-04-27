@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>Avoir {{ avoir.numero_invoice }}</h3>
+    </div>
+    <div class="card-body">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <p><strong>Client :</strong> {{ avoir.customer.nom }}</p>
+                <p><strong>Date :</strong> {{ avoir.invoice_date_time|date:"d/m/Y H:i" }}</p>
+                {% if avoir.facture_liee %}
+                <p><strong>Facture liée :</strong> 
+                    <a href="{% url 'detail_facture' facture_id=avoir.facture_liee.id %}">
+                        {{ avoir.facture_liee.numero_invoice }}
+                    </a>
+                </p>
+                {% endif %}
+            </div>
+            <div class="col-md-6 text-right">
+                <p class="text-danger"><strong>Total :</strong> - {{ avoir.total }} TND</p>
+                <p><strong>Motif :</strong> {{ avoir.comment }}</p>
+            </div>
+        </div>
+
+        <h4>Articles crédités</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Désignation</th>
+                    <th>Quantité</th>
+                    <th>Prix unitaire</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                <tr>
+                    <td>{{ article.designation }}</td>
+                    <td>{{ article.quantity }}</td>
+                    <td>{{ article.unit_price }} TND</td>
+                    <td class="text-danger">- {{ article.get_total }} TND</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-right">
+        <a href="{% url 'liste_avoirs' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+        <a href="{% url 'imprimer_avoir' avoir_id=avoir.id %}" class="btn btn-primary">
+            <i class="fas fa-print"></i> Imprimer
+        </a>
+    </div>
+</div>
+{% endblock %}

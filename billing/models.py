@@ -80,6 +80,15 @@ class Customer(models.Model):
 
     save_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    # numero_client = models.PositiveIntegerField(default=1) ## DECOMPTE PAR UTILISATEUR!!
+
+    
+    # numero_client = models.PositiveIntegerField() ## DECOMPTE PAR UTILISATEUR!!
+
+    # numero_client = models.PositiveIntegerField()
+
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)  # <- Doit absolument exister
+
     # save_by = models.ForeignKey(User, on_delete=models.PROTECT)
 
     # Champs spécifiques aux professionnels
@@ -91,7 +100,10 @@ class Customer(models.Model):
     telephone_mobile = models.CharField(max_length=20, blank=True, null=True)
     telephone_fixe = models.CharField(max_length=20, blank=True, null=True)
 
+    
+        
     class Meta:
+        # unique_together = ('save_by', 'numero_client')  # Unicité par utilisateur
         verbose_name = "Client"
         verbose_name_plural = "Clients"
 
@@ -257,7 +269,9 @@ class Invoice(models.Model):
     INVOICE_TYPE = (
         ('R', _('RECEIPT')),
         ('P', _('PROFORMA INVOICE')),
-        ('I', _('INVOICE'))
+        ('I', _('INVOICE')),
+        # ('A', 'AVOIR'),  # Nouveau type
+
     )
 
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
@@ -278,8 +292,49 @@ class Invoice(models.Model):
     comments = models.TextField(null=True, max_length=1000, blank=True)
 
     logo = models.ImageField(upload_to="invoices/logos/", null=True, blank=True)
+    # numero_invoice = models.PositiveIntegerField(default=1)## decompte à 0 pour chaque nouvel utilisateur (factures)
+    numero_invoice = models.PositiveIntegerField() ## decompte à 0 pour chaque nouvel utilisateur (factures)
+    # # Nouveau champ : permet de lier un avoir à une facture
+    # facture_liee = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='avoirs')
 
+    # # Ajoutez cette propriété pour accéder aux articles
+    # @property
+    # def articles(self):
+    #     """Compatibilité avec l'accès via .articles"""
+    #     return self.article_set.all()
+    
+    # # Ou mieux, définissez explicitement le related_name
+    # # article_set = models.ForeignKey('Article', related_name='articles', ...)
+
+
+
+    # facture_liee = models.ForeignKey(
+    #     'self', 
+    #     null=True, 
+    #     blank=True, 
+    #     on_delete=models.SET_NULL,
+    #     related_name='avoirs'
+    # )
+
+    ##############################################################################3
+    # facture_liee = models.ForeignKey(
+    #     'self',
+    #     null=True,
+    #     blank=True,
+    #     on_delete=models.SET_NULL,
+    #     related_name='avoirs_lies'
+    # )
+    # comment = models.TextField("Commentaire/Motif", blank=True, null=True)
+
+
+
+    # comment = models.TextField(null=True, blank=True)  # Pour stocker le motif
     class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['save_by', 'numero_invoice'], name='unique_invoice_per_user')
+        ]
+        unique_together = ('save_by', 'numero_invoice')  # Unicité par utilisateur
+
         verbose_name = "Invoice"
         verbose_name_plural = "Invoices"
 
@@ -292,9 +347,57 @@ class Invoice(models.Model):
         total = sum(article.get_total for article in articles)
         return total    
 
+        
+    # #############################################################################
+    # @property
+    # def is_avoir(self):
+    #     return self.invoice_type == 'A'
 
 
 
+
+
+class Avoir(models.Model):
+    """
+    Name: Avoir model definition
+    Description: Ce modèle est utilisé pour créer des avoirs, liés à une facture originale.
+    author: dogodontraore@gmail.com
+    """
+    # Dans votre modèle Avoir, modifiez le champ invoice pour le rendre optionnel :
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, null=True, blank=True, related_name='avoirs')
+    # invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, related_name='avoirs')  # Facture liée
+    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    save_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    avoir_date_time = models.DateTimeField(auto_now_add=True)
+
+    total = models.DecimalField(max_digits=20, decimal_places=2)
+
+    last_updated_date = models.DateTimeField(null=True, blank=True)
+
+    comments = models.TextField(null=True, max_length=1000, blank=True)
+
+    logo = models.ImageField(upload_to="avoirs/logos/", null=True, blank=True)
+    
+    numero_avoir = models.PositiveIntegerField()
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['save_by', 'numero_avoir'], name='unique_avoir_per_user')
+        ]
+        unique_together = ('save_by', 'numero_avoir')  # Unicité par utilisateur
+
+        verbose_name = "Avoir"
+        verbose_name_plural = "Avoirs"
+
+    def __str__(self):
+        return f"{self.customer.nom}_{self.avoir_date_time}"
+
+    @property
+    def get_total(self):
+        articles = self.article_set.all()  # Si tu as des articles liés à l'avoir
+        total = sum(article.get_total for article in articles)
+        return total
 
 
 
@@ -385,6 +488,7 @@ class Article(models.Model):
     ]
 
     invoice = models.ForeignKey('Invoice', on_delete=models.CASCADE, null=True, blank=True)  # Changer ici
+    avoir = models.ForeignKey('Avoir', on_delete=models.CASCADE, related_name="articles", null=True, blank=True)
 
     # Champs communs à tous les articles
     designation = models.CharField(max_length=255, default="Article Inconnu")

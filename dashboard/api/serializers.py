@@ -89,6 +89,9 @@ class CustomerSerializer(serializers.ModelSerializer):
             'email',
             'sex',
             'ville',
+
+
+
             'pays',
             'zone',
             'created_date',

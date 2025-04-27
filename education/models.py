@@ -2,15 +2,17 @@ from django.db import models
 
 # Create your models here.
 
+from django.contrib.auth import get_user_model
 
 from django.db import models
 
 # Create your models here.
 # education/models.py
 from django.db import models
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
+from authentication.models import User
 
-User = get_user_model()  # Récupère le modèle utilisateur défini dans AUTH_USER_MODEL
+User = get_user_model()  # Récupère le modèle utilisateur défini dans authentication
 
 
 

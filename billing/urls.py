@@ -1,9 +1,9 @@
 from django.urls import path,include
 from . import views
 from .views import export_invoices_csv,AddArticleView
-from .views import creer_facture_etape1, creer_facture_etape2,download_pdf,download_csv,client_list,services,load_content,formules, plus_loin,base_customers,CustomerListView,EditCustomerView,DeleteCustomerView,download_csv,download_pdf
+from .views import creer_facture_etape1, creer_facture_etape2,download_pdf,download_csv,client_list,services,load_content,formules, plus_loin,base_customers,CustomerListView,EditCustomerView,DeleteCustomerView,download_csv,download_pdf #,liste_avoirs
 
-
+from .views import *
 
 
 
@@ -11,8 +11,9 @@ from .views import creer_facture_etape1, creer_facture_etape2,download_pdf,downl
 
 
 #SERIALIZERS DATASET!!
-from .views import InvoiceDetailAPIView,InvoiceListAPIView
+from .views import InvoiceDetailAPIView,InvoiceListAPIView ,redirect_to_dashboard #creer_avoir_etape1 ,creer_avoir_etape2 ,demarrer_avoir#,creer_avoir_etape2,detail_avoir , creer_avoir_etape2,toggle_paid ,creer_avoir_etape1 #creer_avoir_etape1 , creer_avoir, ,get_user_data#,dashboard_redirect   
 
+# app_name = 'invoices'  # Très important pour le namespace
 
 
 urlpatterns = [ 
@@ -134,6 +135,60 @@ urlpatterns = [
     path('invoice/<int:pk>/', InvoiceDetailAPIView.as_view(), name='invoice-detail'),
     path('invoices/', InvoiceListAPIView.as_view(), name='invoice-list'),  # <- Ajouté ici
 
+
+    path('dashboard/', redirect_to_dashboard, name='redirect_to_dashboard'),
+    # # path("user_data/", views.user_data, name="user_data"),
+    # # path("dashboard/",  views.redirect_to_streamlit, name="go_to_dashboard"),
+    # path("user_data/", user_data, name="user_data"),
+    # path("dashboard/", dashboard_redirect, name="dash_board"),
+    # path('user-data/', get_user_data, name='user-data'),
+
+
+
+    path('view-invoice/<int:pk>', views.InvoiceVisualizationView.as_view(), name='view-invoice'),
+    path('invoice-pdf/<int:pk>', views.get_invoice_pdf, name="invoice-pdf"),
+    path('invoices/<int:pk>/toggle-paid/', views.toggle_paid, name='toggle-paid'),
+    # path('facture/<int:facture_id>/creer-avoir/', views.creer_avoir, name='creer_avoir'),
+
+# # urls.py
+#     # path('avoirs/creer/etape1/', views.creer_avoir_etape1, name='creer_avoir_etape1'),
+
+
+#     # path('facture/<int:facture_id>/creer-avoir/etape2/', views.creer_avoir_etape2, name='creer_avoir_etape2'),
+
+#     # path('avoir/<int:avoir_id>/', views.detail_avoir, name='detail_avoir'),
+#     path('avoirs/', views.liste_avoirs, name='liste_avoirs'),
+#     # path('avoirs/<int:avoir_id>/', views.detail_avoir, name='detail_avoir'),
+#     path('avoir/<int:avoir_id>/', views.detail_avoir, name='detail_avoir'),
+
+#     # path('avoir/<int:facture_id>/etape1/', views.creer_avoir_etape1, name='creer_avoir_etape1'),
+#     # path('avoir/<int:facture_id>/etape2/', views.creer_avoir_etape2, name='creer_avoir_etape2'),
+#     path('creer-avoir/etape1/<int:facture_id>/', views.creer_avoir_etape1, name='creer_avoir_etape1'),
+#     # path('creer-avoir/etape1/', views.creer_avoir_etape1, name='creer_avoir_simple_etape1'),
+#     # path('creer-avoir/etape2/', views.creer_avoir_etape2, name='creer_avoir_etape2'),
+
+
+
+
+
+
+
+#CREER AVOIRS
+
+    # path('avoir/<int:avoir_id>/', views.voir_avoir, name='voir_avoir'),
+
+    path("invoice/avoir/etape1/", views.creer_avoir_etape1, name="creer_avoir_etape1"),
+
+    path("invoice/avoir/etape2/", views.creer_avoir_etape2, name="creer_avoir_etape2"),
+
+    path('view-avoir/<int:pk>', views.AvoirVisualizationView.as_view(), name='view-avoir'),
+
+    path('avoir-pdf/<int:pk>', views.get_avoir_pdf, name="avoir-pdf"),
+
+    path("avoirs/", views.list_avoir, name="list_avoir"),
+
+    path('api/invoices/', views.get_invoices_json, name='api_invoices'),
+    path('api/invoices/', api_invoices, name='api_invoices'),
 
 ]
 

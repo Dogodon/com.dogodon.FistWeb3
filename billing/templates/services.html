@@ -8,7 +8,7 @@
     <title>Menu avec Dropdowns</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    
+
 
     <style>
         body {
@@ -417,7 +417,7 @@
 
             
                 <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 1px; background-color: #fdfafa;             color: black;   " href="{% url 'ajouter_client_professionnel' %}">Livraison</a></li>
-                <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 5px; background-color: #fdfafa;             color: black;   " href="{% url 'creer_facture_etape1' %}">Echéance</a></li>
+                <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 5px; background-color: #fdfafa;             color: black;   " href="{% url 'dashboard' %}">Echéance</a></li>
                 <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 5px; background-color: #fdfafa;             color: black;   " href="{% url 'creer_facture_etape1' %}">Maintenance</a></li>
 
             </ul>
@@ -426,10 +426,10 @@
                 <a href="#" class="dropdown-toggle" style=" padding: 10px;cursor: pointer; background-color: #21639e;margin-bottom: 10px;border-radius: 5px;">Listes</a>
                 <ul class="dropdown-menu" style="cursor: pointer;background-color: #ffffff;  margin-bottom: 10px;border-radius: 5px;" >
                     <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px; margin-bottom:1px;  background-color: #fafafa;                  color: black;   "  href="{% url 'client_list' %}">Clients</a></li>
-                    <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 5px; background-color: #fafafa;                  color: black;   "href="#">Rappels</a></li>
+                    <!-- <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 5px; background-color: #fafafa;                  color: black;   "href="#">Rappels</a></li> -->
 
                     <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 1px; background-color: #fafafa;                  color: black;   "href="{% url 'list_facture' %}">Factures</a></li>
-                    <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 5px; background-color: #fafafa;                  color: black;   "href="#">Documents</a></li>
+                    <!-- <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px;  margin-bottom: 5px; background-color: #fafafa;                  color: black;   "href="#">Documents</a></li> -->
                 </ul>
             </li>
             <li class="dropdown">
@@ -441,7 +441,25 @@
                 <ul class="dropdown-menu" style="cursor: pointer;background-color: #ffffff;margin-bottom: 10px;
                 border-radius: 5px;" >
                     <!-- <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px; margin-bottom:1px;  background-color: #fafafa;                  color: black;   " href="http://localhost:8502/">Tableau de bord</a></li> -->
-                    <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px; margin-bottom:1px;  background-color: #fafafa;                  color: black;   " href="http://localhost:8502/">Tableau de bord</a></li>
+                    <!-- <a href="{% url 'redirect_to_dashboard' %}">Accéder au Dashboard</a> -->
+
+                    <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px; margin-bottom:1px;  background-color: #fafafa;                  color: black;   " href="{% url 'redirect_to_dashboard' %}">Tableau de bord</a></li>
+                     <!-- <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px; margin-bottom:1px;  background-color: #fafafa;                  color: black;   " href="{{ dashboardurl }} ">Tableau de bord</a></li>  -->
+
+                    <!-- <a href="http://localhost:8501/?sessionid={{ request.COOKIES.sessionid }}" target="_blank">Ouvrir Dashboard</a> -->
+                    <!-- <li><a  style="border: 1px solid rgb(255, 255, 255);border-radius: 5px; margin-bottom:1px;  background-color: #fafafa;                  color: black;   "
+                        href="http://localhost:8501?email={{ user.email }}&token={{ user.auth_token.key }}" target="_blank">
+                        Accéder au Dashboard    <p>Redirection vers le tableau de bord... Si vous n'êtes pas redirigé, <a href="{{ dashboard_url }}">cliquez ici</a>.</p>
+
+                    </a> </li> -->
+                    <!-- <li>
+                        <a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px; margin-bottom:1px; background-color: #fafafa; color: black;" 
+                           href="{% url 'dashboard' %}" target="_blank">
+                           Accéder au Dashboard
+                        </a>
+                    </li> -->
+                    
+
                     <li><a style="border: 1px solid rgb(255, 255, 255);border-radius: 5px; margin-bottom:1px;  background-color: #fafafa;                  color: black;   " href="#">Tableau d'analyse</a></li>
                 </ul>
             </li>

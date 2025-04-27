@@ -89,6 +89,19 @@ INSTALLED_APPS = [
         # Rest Framework
     'rest_framework',
     'authentication',
+    'landing',
+    # 'echeance',
+    # 'calendarapp',
+
+    # 'calendarapp',
+    # 'dashboard',
+    'rest_framework.authtoken',  # <-- Ajoute ceci si pas encore fait
+
+
+    'calendarapp.apps.CalendarappConfig',
+    # 'django.contrib.staticfiles',
+
+
 ]
 
 # MIDDLEWARE = [
@@ -184,16 +197,67 @@ WSGI_APPLICATION = "facturation.wsgi.application"
 # }
 
 
+
+
+
+#################################BONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',  # Utiliser MySQL
+#         'NAME': 'facturation_db',   # Le nom de la base que tu viens de créer
+#         'USER': 'root',                        # Utilisateur MySQL (ou celui que tu utilises)
+#         'PASSWORD': '',        # Mot de passe MySQL
+#         'HOST': 'localhost',                   # Hôte (local ou distant)
+#         'PORT': '3307',                        # Port de MySQL (3306 est le port par défaut)
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Utiliser MySQL
-        'NAME': 'facturation_db',   # Le nom de la base que tu viens de créer
+        'NAME': 'fact_db',   # Le nom de la base que tu viens de créer
         'USER': 'root',                        # Utilisateur MySQL (ou celui que tu utilises)
         'PASSWORD': '',        # Mot de passe MySQL
         'HOST': 'localhost',                   # Hôte (local ou distant)
         'PORT': '3307',                        # Port de MySQL (3306 est le port par défaut)
     }
 }
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+
+
+        # ou JWT si tu l’utilises
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    
+    ]
+}
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.JWTAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',  # S'assurer que l'utilisateur est authentifié
+#     ],
+# }
+
+# Activer les sessions
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True  # Pour HTTPS
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 3600 * 24  # 24 heures
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -261,6 +325,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

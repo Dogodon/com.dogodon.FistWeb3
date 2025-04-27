@@ -1,0 +1,85 @@
+/* auth_styles.css */
+
+/* Fond général de la page */
+body {
+    background-color: #ffc583; /* Bleu très clair pour le fond */
+    font-family: Arial, sans-serif;
+}
+
+/* Conteneur de formulaire */
+.container {
+    max-width: 450px;
+    margin-top: 50px;
+    background-color: #ffc583;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre des pages */
+h2 {
+    color: #1e3a8a; /* Bleu foncé pour le titre */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style des champs de formulaire */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #1e40af; /* Bleu profond pour les labels */
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #a0c4ff; /* Bleu pâle pour les champs */
+}
+
+.form-control:focus {
+    border-color: #1e40af; /* Bordure bleue foncée lors du focus */
+    box-shadow: 0 0 5px rgba(30, 64, 175, 0.5); /* Surbrillance */
+}
+
+/* Bouton de soumission */
+.btn {
+    background-color: #1e40af; /* Bleu profond */
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #1e3a8a; /* Bleu plus foncé au survol */
+}
+
+/* Pied de page du formulaire */
+.form-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.form-footer a {
+    color: #1e40af;
+}
+
+/* Animation pour la page */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.container {
+    animation: fadeIn 1s ease-in;
+}

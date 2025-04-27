@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+
+  
+    />
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    /> -->
+
+    
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Web Design Mastery | SoulTravel</title>
+  </head>
+  <body>
+    <nav>
+        <div class="nav__header">
+          <div class="nav__logo">
+            <a href="#">NG<span>Fact</span>.</a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <span><i class="ri-menu-line"></i></span>
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="#"></a>Home</a></li>
+          <li><a  href="#services">Services</a></li>
+          <li><a  href="#about_us">About Us</a></li>
+          <li><a  href="#subscriptions">Subcriptions</a></li>
+  
+          <li><a  href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav__btns">
+          <button class="btn sign__up"><a href="{% url 'authentication:signup' %}" > Sign Up</a></button>
+          <button class="btn sign__in"><a href="{% url 'authentication:login' %}" > Sign In</a></button>
+        </div>
+      </nav>
+      <header class="header__container" style="margin-top:16px">
+        <div class="header__image">
+          <div class="header__image__card header__image__card-1">
+            <span><i class="ri-key-line"></i></span>
+            Intuitive
+          </div>
+          <div class="header__image__card header__image__card-2">
+            <span><i class="ri-passport-line"></i></span>
+            Clear
+          </div>
+          <div class="header__image__card header__image__card-3">
+            <span><i class="ri-map-2-line"></i></span>
+            Fast
+          </div>
+          <div class="header__image__card header__image__card-4">
+            <span><i class="ri-guide-line"></i></span>
+            Easy
+          </div>
+          <img src="{% static 'header.png' %}" alt="header" />
+      </div>
+        <div class="header__content">
+          <h1>FREE FROM<br />SHEETS <span>MASTER</span> YOUR TIME AND BILLING</h1>
+          <p>
+            Embark on the professional world of any succesful business, manage your invoicing, track the status of your items, collect payments, and keep an eye on fluctuations.
+            Analyze and customize your financial data as you wish to make strategic decisions and watch your business reinvent itself and break all records.
+          </p>
+            <!-- <form action="/">
+              <div class="input__row">
+                <div class="input__group">
+                  <h5>Destination</h5>
+                  <div>
+                    <span><i class="ri-map-pin-line"></i></span>
+                    <input type="text" placeholder="Paris, France" />
+                  </div>
+                </div>
+                <div class="input__group">
+                  <h5>Date</h5>
+                  <div>
+                    <span><i class="ri-calendar-2-line"></i></span>
+                    <input type="text" placeholder="17 July 2024" />
+                  </div>
+                </div>
+              </div>
+              <button type="submit">Search</button>
+            </form> -->
+  
+        </div>
+      </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="header__content" id='services' style="margin: 85px;">
+        <h1>MEET OUR SERVICES<br /> <span>BE</span> SPEED AND PROFESSIONNAL</h1>
+        <p>
+          We offer the following services: designed for you and according to you.
+        </p>
+        <form action="/">
+          <div class="input__row" style="   width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex: 1; flex-direction: column;">
+            <!-- <div class="input__group">
+              <h5>Create Customers</h5>
+              <div style="width: 700px">
+                <h5 style="color : black">You can create <span> particular </span></h5><h5 style="color : black"> customers or </h5><h5><span> professional </span></h5><h5 style="color : black">customers or </h5><h5><span> VIP </span></h5><h5 style="color : black">customers.</h5>
+
+              </div>
+            </div>
+            <div class="input__group">
+              <h5>Create Documents</h5>
+              <div style="width: 700px">
+                <h5 style="color : black">You can create <span> invoices </span></h5><h5 style="color : black"> as documents or</h5> <h5 style="color : black">or you can ask us a  </h5><h5><span> document you need.</span></h5>
+
+              </div>
+            </div>
+            <div class="input__group">
+                <h5>View Dashboard</h5>
+                <div style="width: 700px">
+                  <h5 style="color : black">You can create also <span> view </span></h5><h5 style="color : black"> and</h5> <h5> <span> adapt </span></h5> <h5 style="color : black"> the features on </h5> <h5><span> your dashboard </span> </h5> <h5 style="color : black"> in real</h5><h5><span> time.</span></h5>
+
+                </div>
+            </div> -->
+
+
+            <div class="input__group">
+              <h5>Be a Creator</h5>
+              <div style="width: 800px">
+                <h5 style="color : black">You can create <span> particular </span></h5><h5 style="color : black"> customers or </h5><h5><span> professional </span></h5><h5 style="color : black">customers or </h5><h5><span> VIP </span></h5><h5 style="color : black">customers.</h5>
+              </div>
+              <div style="width: 800px">
+                <h5 style="color : black">You can create <span> invoices </span></h5><h5 style="color : black"> as documents or</h5> <h5 style="color : black">or you can ask us a  </h5><h5><span> document you need.</span></h5>
+              </div>
+            </div>
+
+            <div class="input__group">
+              <h5>Be a Viewer</h5>
+              <div style="width: 800px">
+                <h5 style="color : black">You can create also <span> view </span></h5><h5 style="color : black"> and</h5> <h5> <span> adapt </span></h5> <h5 style="color : black"> the features on </h5> <h5><span> your dashboard </span> </h5> <h5 style="color : black"> in real</h5><h5><span> time.</span></h5>
+              </div>
+            </div>
+        
+            <div class="input__group">
+              <h5>Be a Follower</h5>
+              <div style="width: 800px">
+                <h5 style="color : black">You can also <span>follow and download</span></h5><h5><span>all lists</span></h5><h5 style="color : black">, </h5><h5><span> you created </span></h5><h5 style="color : black"> or analysis you found relevant.</h5>
+              </div>
+            </div>
+            <div class="input__group">
+                <h5>Be a Manager</h5>
+                <div style="width: 800px">
+                  <h5 style="color : black">It is also possible for you to<span> manage </span></h5><h5 style="color : black"> schedules upon </h5><h5><span> delivery </span></h5><h5 style="color : black">, </h5><h5><span> maintenance </span></h5><h5 style="color : black">or returns.</h5>
+
+                </div>
+            </div>
+          </div>
+          
+
+      </div>
+    </header>
+
+
+
+
+
+    
+    <div class="header__content" id='about_us' style="margin: 85px;">
+        <h1>ABOUT <span>US</span></h1>
+        <p>
+          FAITES NOTRE CONNAISSANCE:
+        </p>
+        <form action="/">
+          <div class="input__row">
+            <div class="input__group">
+              <h5>FACULTE DES SCIENCES DE TUNIS</h5>
+              <div>
+                <h5 style="color : black">La Faculté des Sciences de Tunis, relevant de l’Université de Tunis El Manar, est l’un des établissements les plus prestigieux et les plus anciens en Tunisie dans le domaine des sciences fondamentales et appliquées. Fondée en 1960, elle a formé des générations de scientifiques, chercheurs, ingénieurs et enseignants qui ont contribué activement au développement technologique et scientifique du pays et au-delà.
+
+                  IL s'agit de l'etablissement qui a agréé la mise en place de cette application et le lieu de formation de la developeuse chargée de la création de NG-FACT. <br /> <br> <br/></h5>
+              </div>
+            </div> <br />
+
+          </div>
+          <div class="input__row">
+            <div class="input__group">
+              <h5>NG MULTIMEDIA</h5>
+              <div>
+                <h5 style="color : black">NG MULTIMEDIA est une entreprise dynamique et innovante spécialisée dans les technologies de l'information, la communication digitale et le développement de solutions intelligentes. Elle s’impose comme un acteur clé dans l’univers du numérique grâce à une vision moderne, une expertise technique pointue et une approche centrée sur la performance et la satisfaction client.
+
+                  Il s'agit de l'entreprise d'acceuil de ce projet : NG-FACT. Une application web de facturation developpée au sein du service NG Develop de l'entreprise! <br /> <br> <br/></h5>
+              </div>
+            </div>
+
+          </div>
+          <div class="input__row">
+            <div class="input__group">
+              <h5>DOGODON M. TRAORE</h5>
+              <div>
+                <h5 style="color : black">DOGODON M. TRAORE est une étudiante en troisième année de Génie Logiciel à la Faculté des Sciences de Tunis, passionnée par le développement web et les systèmes intelligents. Rigoureuse, curieuse et motivée, elle a été sélectionnée pour réaliser son projet de fin d’études (PFE) au sein de NG MULTIMEDIA. NG-FACT est conçu pour être un outil fiable, ergonomique et évolutif, qui pourrait être utilisé en production à la fin du stage.
+                  </h5>
+              </div>
+            </div>
+
+          </div>
+        </form>
+
+
+        
+      </div>
+    </header>
+
+
+
+    <div class="header__content" id='subscriptions' style="margin: 85px;">
+        <h1>WANT TO GO <span>FURTHER</span>?</h1>
+        <p>
+          For customize requirements and additional features specific to your business and activities, 
+          simply subscribe and contact us. We take care of everything else.
+          Dear entrepreneurs or buisinesses, Here are the plans we offer:
+        </p>
+        <form action="/">
+          <div class="input__row" style=" padding-bottom: 0px; margin-bottom: 0px;">
+            <div class="input__group">
+              <h5>FREE</h5>
+              <div>
+                <!-- <span><i class="ri-map-pin-line"></i></span> -->
+                <!-- <h5 style="color : black">Une année <span> entière </span></h5><h5 style="color : black"> ou vous avez plein accès à  </h5><h5><span> toutes les fonctionnalités citées plus haut </span></h5><h5 style="color : black">GRATUITEMENT</h5><h5><span> ou et quand </span></h5><h5 style="color : black">vous voulez!</h5> -->
+                <h5 style="color : black">Une année <span> entière </span></h5><h5 style="color : black"> ou vous avez plein accès à  </h5>
+
+              </div>
+              <div>
+                <h5><span> toutes les fonctionnalités citées plus haut </span></h5>
+              </div>
+
+              <div>
+                <h5 style="color : black">GRATUITEMENT</h5><h5><span> ou et quand </span></h5><h5 style="color : black">vous voulez!</h5>
+              </div>
+              
+
+
+              
+            </div>
+            <div class="input__group">
+              <h5>Date exemple comcret : </h5>
+              <div>
+                <span><i class="ri-calendar-2-line"></i></span>
+                <input type="text" placeholder="17 Mai 2025   --   17 Mai 2026" />
+              </div>
+            </div>
+          </div>
+          
+        </form>
+        <div class="header__content" id='subscriptions' >
+            <form action="/">
+              <div class="input__row">
+                <div class="input__group">
+                  <h5>BASIC</h5>
+                  <div>
+                    <!-- <span><i class="ri-map-pin-line"></i></span> -->
+                    <!-- <h5 style="color : black">Une année <span> entière </span></h5><h5 style="color : black"> ou vous avez plein accès à  </h5><h5><span> toutes les fonctionnalités citées plus haut </span></h5><h5 style="color : black">GRATUITEMENT</h5><h5><span> ou et quand </span></h5><h5 style="color : black">vous voulez!</h5> -->
+                    <h5 style="color : black">Par mois <span> après l'année d'essai </span></h5><h5 style="color : black"> ou par necessité </h5>
+    
+                  </div>
+                  <div>
+                    <h5> offrez vous les fonctionnalités BASIC + de l'application pour personnaliser ou nous demander les services BASIC + dont vous avez besoin </h5>
+                  </div>
+    
+                  <div>
+                    <h5 style="color : black">50 DT</h5><h5><span>en accédant à l'onglet souscription  </span></h5><h5 style="color : black">après votre connexion.</h5>
+                  </div>
+  
+                </div>
+                <div class="input__group">
+                  <h5>Date exemple comcret : </h5>
+                  <div>
+                    <span><i class="ri-calendar-2-line"></i></span>
+                    <input type="text" placeholder="17 Mai 2026   --   18 Juin 2026" />
+                  </div>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+
+
+          <div class="header__content" id='subscriptions' >
+            <form action="/">
+              <div class="input__row">
+                <div class="input__group">
+                  <h5>PREMIUM</h5>
+                  <div>
+                    <!-- <span><i class="ri-map-pin-line"></i></span> -->
+                    <!-- <h5 style="color : black">Une année <span> entière </span></h5><h5 style="color : black"> ou vous avez plein accès à  </h5><h5><span> toutes les fonctionnalités citées plus haut </span></h5><h5 style="color : black">GRATUITEMENT</h5><h5><span> ou et quand </span></h5><h5 style="color : black">vous voulez!</h5> -->
+                    <h5 style="color : black">Par mois <span> après l'année d'essai </span></h5><h5 style="color : black"> ou par necessité </h5>
+    
+                  </div>
+                  <div>
+                    <h5> offrez vous les fonctionnalités premium de l'application pour personnaliser ou nous demander les services PREMIUM dont vous avez besoin </h5>
+                  </div>
+    
+                  <div>
+                    <h5 style="color : black">100 DT</h5><h5><span>en accédant à l'onglet souscription  </span></h5><h5 style="color : black">après votre connexion.</h5>
+                  </div>
+  
+                </div>
+                <div class="input__group">
+                  <h5>Date exemple comcret : </h5>
+                  <div>
+                    <span><i class="ri-calendar-2-line"></i></span>
+                    <input type="text" placeholder="17 Mai 2026   --   18 Juin 2026" />
+                  </div>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+          
+        
+
+      </div>
+    </header>
+
+
+
+
+
+    <div class="header__content" id='contact' style="margin: 85px;">
+        <h1>CONTACT</h1>
+        <div class="bar" style="position: center ; align-items:center">
+          NG MULTIMEDIA : <a href="https://www.ng-multimedia.com/">website link</a>
+        </div>
+        <div class="bar" style="position: center ; align-items:center">
+          FACULTE DES SCIENCES DE TUNIS : <a href="https://fst.rnu.tn/fr">website link</a>
+        </div>
+        <div class="bar" style="position: center ; align-items:center">
+          MORE INFO ON NG-FACT : <a href="mailto:dogodontraore@gmail.com">Envoyer un email</a>
+        </div>
+
+
+        <div class="bar" style="position: center ; align-items:center">
+          Copyright © 2025 NG-FACT team. All rights reserved.
+        </div>
+      </div>
+      <!-- <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <div class="bar">
+          NG MULTIMEDIA : <a href="https://www.ng-multimedia.com/">website link</a>
+        </div>
+        <div class="bar">
+          FACULTE DES SCIENCES DE TUNIS : <a href="https://fst.rnu.tn/fr">website link</a>
+        </div>
+        <div class="bar">
+          MORE INFO ON NG-FACT : <a href="mailto:dogodontraore@gmail.com">email</a>
+        </div>
+        <div class="bar">
+          Copyright © 2025 NG-FACT team. All rights reserved.
+        </div>
+      </div>
+    </div> -->
+      
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="{% static 'main.js' %}"></script>
+    <!-- JS Bootstrap Bundle with Popper -->
+
+  </body>
+</html>

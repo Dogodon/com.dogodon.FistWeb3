@@ -1,0 +1,152 @@
+/* Importation d'une police moderne */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    padding-left: 59px;
+    padding-right: 59px;
+    background: #f4f4f4;
+    color: #333;
+    margin-top: 60px;  /* Compense la hauteur du header fixe */
+display: flex;
+flex-direction: column;
+}
+
+/* HEADER */
+.header {
+    position: fixed;  /* 🔥 Fixe le header en haut */
+    top:1px; /* 📍 Le colle au sommet */
+    left: 0;
+    width: 100%;  /* 📏 S'étend sur toute la largeur */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;  /* 🔥 Réduit l’espace horizontal */
+    /* max-width: 900px;    📏 Limite la largeur */
+    margin: 0 auto;      /* 📌 Centre la navbar */
+    background-color: #fff; /* 🎨 Fond blanc */
+    box-shadow: 0px 4px 6px rgba(153, 182, 255, 0.1); /* 🌟 Effet d’ombre */
+    border-radius: 10px; /* 🟢 Bords arrondis */
+    height: 65px;
+    background: linear-gradient(to bottom, rgba(153, 204, 255, 0.3), rgba(0, 0, 0, 0)); 
+    z-index: 10;  /* S'assure que le header reste au-dessus du contenu */
+    box-shadow: 0 4px 6px rgba(198, 231, 255, 0.3);  /* Ombre pour le header */
+    /* background: rgba(0, 0, 0, 0.3);  Utilise un fond semi-transparent */
+    backdrop-filter: blur(10px);  /* Applique un flou de fond */
+}
+
+.sous-nav{
+    display: flex;
+    flex-direction: row;
+    font-size:10px;
+    top:64px;
+    position: fixed;
+    height: 14px;
+    background-color: #ffffff;
+    width: 99%;
+    left:7px;
+    border-radius: 10px; /* 🟢 Bords arrondis */
+
+}
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icon i {
+    font-size: 10px; /* Ajuste la taille des icônes */ 
+    color: #333 !important; /* Force la couleur à #333 avec !important */
+    transition: color 0.3s ease; /* Transition pour l'effet de survol */
+}
+
+.social-icon:hover i {
+    color: #333; /* Change la couleur au survol (exemple pour bleu) */
+}
+
+
+/* LOGO */
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-left: 30px; /* Espace de 30px du bord gauche */
+}
+
+.logo span {
+    color: #21639e;
+}
+
+/* NAVIGATION */
+.nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-list li {
+    background: #21639e;
+    padding: 5px 30px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.nav-list li:hover {
+    background: #21639e;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+/* ICON UTILISATEUR */
+.user-icon {
+    font-size: 60px;  /* 🔥 Taille de l'icône utilisateur */
+    color: #333;      /* 🎨 Couleur de l'icône */
+    cursor: pointer;  /* 🖱️ Curseur interactif */
+    margin-right: 30px; /* 📍 Espacement avec le bord droit */
+}
+
+.user-icon:hover {
+    color: #21639e;
+}
+
+/* MENU BURGER (Pour mobile) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    width: 30px;
+    height: 3px;
+    background: #333;
+    margin: 5px;
+    transition: 0.3s;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+}

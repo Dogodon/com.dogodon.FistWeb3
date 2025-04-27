@@ -11,4 +11,6 @@ router.registry.extend(customer_router.registry)
 
 urlpatterns = [
     path('', include(router.urls)),
+    # path('dashboard/', include('dashboard.api.urls')),  # ou directement : path('dashboard/', redirect_to_dashboard, name='redirect_to_dashboard')
+
 ]

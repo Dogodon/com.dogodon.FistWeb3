@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="{% static 'style00.css' %}"> -->
+
+    <style>
+
+
+
+/*TITLE BOX*/
+.title-box {
+            display: inline-block;
+            width: 400px;
+            height: 50px;
+            border: 2px solid #21639e;
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: #21639e;
+            margin-left: 20px;
+            margin-top: 0px;
+            /* transform: translateX(-50%); /* Centre horizontalement */
+            transform: translateY(-50%);    
+            /*transform: translate(-50%, -50%); /* Centre parfaitement */
+
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            height: 300px;
+            width: 500px;
+            z-index: 2145450000;
+            margin-top: 0px;
+            transform: translate(-50%,-80%);    
+
+                /* Floute tout ce qui est derrière */
+    backdrop-filter: blur(10px);
+
+        }
+        .modal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    z-index: -1; /* Place l’effet derrière le modal */
+}
+
+        
+        .modal input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .modal button {
+            background: #21639e;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .title-box2 {
+    display: inline-block;
+    width: 400px;
+    height: 50px;
+    border: 2px solid #21639e;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    color: #21639e;
+    margin-left: 20px;
+    margin-top: 0px; /* Espace entre title-box et title-box2 */
+}
+.deux {
+    margin-top: 0px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    color: #21639e;
+    flex-direction: row;
+    display: flex;
+    height: 40px;
+
+}
+
+
+
+
+
+
+/* ************************************************************* */
+
+
+.logo-box {
+    width: 150px;
+    height: 90px;
+    /* border: 2px dashed #ccc; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    cursor: pointer;
+}
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+.details {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.details div {
+    width: 48%;
+}
+
+
+.image-upload {
+    width: 100px;
+    height: 80px;
+    background-color: #ddd;
+    /* border: 1px dashed #aaa; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 10px;
+    left: 0px;
+}
+.image-upload input {
+    display: none;
+}
+
+/* .logo-box {
+    width: 150px; ou ce que tu veux */
+    /* height: 150px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+} */
+
+.logo-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+
+
+
+
+
+/* ************************************************************* */
+body{
+    margin: 0;
+    padding: 0;
+    font: 400 .875rem 'Open Sans', sans-serif;
+    /* color: #f4f4f4; */
+    color:#21639e;
+    background: #f4f4f4;
+    position: relative;
+    height: 100%;
+}
+.invoice-container {
+    padding: 1rem;
+}
+.invoice-container .invoice-header .invoice-logo {
+    margin: 0.8rem 0 0 0;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #21639e;
+}
+.invoice-container .invoice-header .invoice-logo img {
+    max-width: 130px;
+}
+.invoice-container .invoice-header address {
+    font-size: 0.8rem;
+    color: #8a99b5;
+    margin: 0;
+}
+.invoice-container .invoice-details {
+    margin: 1rem 0 0 0;
+    padding: 1rem;
+    line-height: 180%;
+    background: #1a233a;
+}
+.invoice-container .invoice-details .invoice-num {
+    text-align: right;
+    font-size: 0.8rem;
+}
+.invoice-container .invoice-body {
+    padding: 1rem 0 0 0;
+}
+.invoice-container .invoice-footer {
+    text-align: center;
+    font-size: 0.7rem;
+    margin: 5px 0 0 0;
+}
+
+.invoice-status {
+    text-align: center;
+    padding: 1rem;
+    background: #272e48;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+.invoice-status h2.status {
+    margin: 0 0 0.8rem 0;
+}
+.invoice-status h5.status-title {
+    margin: 0 0 0.8rem 0;
+    color: #21639e;
+}
+.invoice-status p.status-type {
+    margin: 0.5rem 0 0 0;
+    padding: 0;
+    line-height: 150%;
+}
+.invoice-status i {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    display: inline-block;
+    padding: 1rem;
+    background: #1a233a;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+}
+.invoice-status .badge {
+    text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+    .invoice-container {
+        padding: 1rem;
+    }
+}
+
+.card {
+    background: #272E48;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 1rem;
+}
+
+.custom-table {
+    border: 1px solid #2b3958;
+}
+.custom-table thead {
+    background: #21639e;
+}
+.custom-table thead th {
+    border: 0;
+    color:white;
+}
+.custom-table > tbody tr:hover {
+    background: rgb(50, 224, 41)
+}
+.custom-table > tbody tr:nth-of-type(even) {
+    background-color: #1a243a;
+}
+.custom-table > tbody td {
+    border: 1px solid #2e3d5f;
+}
+
+.table {
+    background: #1a243a;
+    color: #21639e;
+    font-size: .75rem;
+}
+.text-success {
+    color: red !important;
+}
+.custom-actions-btns {
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+.custom-actions-btns .btn {
+    margin: .3rem 0 .3rem .3rem;
+}
+</style>
+</head>
+<body>
+    
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="container" style="margin-top: 50px; margin-bottom:50px; margin-right: 180px; margin-left:180px ;">
+    <div class="row gutters">
+    	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    		<div class="card" style="background-color: white">
+    			<div class="card-body p-0">
+    				<div class="invoice-container">
+    					<div class="invoice-header">
+    
+    						<!-- Row start -->
+    						<div class="row gutters">
+    							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    								<div class="custom-actions-btns mb-5">
+    										<i class="icon-download"></i> Download
+    									</a>
+    									<a href="#" class="btn btn-secondary">
+    										<i class="icon-printer"></i> Print
+    									</a>
+    								</div>
+    							</div>
+    						</div>
+    						<!-- Row end -->
+    
+    						<!-- Row start -->
+    						<div class="row gutters" style="display: flex; flex-direction:row; " >
+                                <div class="logo-box" id="logoBox" onclick="document.getElementById('logoInput').click();" style="margin-right: 10px;">
+
+                                    <input type="file" name="logo" id="logoInput" accept="image/*"  style="display: none;">
+
+                                    <!-- <input type="file" name="logo" id="logoInput" accept="image/*" style="display: none;"> -->
+                                    <span id="uploadIcon">📷</span>
+                                    <img id="logoPreview" src="" alt="Logo" class="hidden">
+                                </div>                    
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">    
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <address class="text-right">
+                                            NG Multimedia Menzah9, Tunis<br>
+                                            Tunisie, Tunis<br>
+                                            00000 00000
+                                        </address>
+                                    </div>
+    							</div>
+
+                            </div>
+    						</div>
+    						<!-- Row start -->
+    						<div class="row gutters" >
+                                <div class="form-group">
+                                    <label for="customer">Client*</label>
+                                    <select class="form-control" name="customer" id="customer" required>
+                                        <option value="">Sélectionnez un client</option>
+                                        {% for customer in customers %}
+                                            <option value="{{ customer.id }}" 
+                                                    {% if customer.id == selected_customer_id %}selected{% endif %}>
+                                                {{ customer.nom }} - {{ customer.email }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+    
+                                <div class="form-group">
+                                    <label for="invoice">Facture associée (optionnel)</label>
+                                    <select class="form-control" name="invoice" id="invoice" disabled></select>
+                                        <option value="">Aucune facture (avoir autonome)</option>
+                                        {% for invoice in invoices %}
+                                            <option value="{{ invoice.id }}" 
+                                                    {% if selected_invoice_id == invoice.id %}selected{% endif %}>
+                                                Facture #{{ invoice.numero_facture }} - {{ invoice.total }} DT
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+<!-- Sélection de la facture (peut être vide si null=True dans le modèle) -->
+<!-- <div class="form-group">
+    <label for="invoice">Facture associée</label>
+    <select class="form-control" name="invoice" id="invoice" required>
+        <option value="">Aucune facture (avoir autonome)</option>
+        {% for invoice in invoices %}
+            <option value="{{ invoice.id }}">
+                Facture #{{ invoice.numero_facture }} - {{ invoice.total }} DT ({{ invoice.facture_date_time|date:"d/m/Y" }})
+            </option>
+        {% endfor %}
+    </select>
+</div> -->
+
+                                
+    							<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12" style="padding-right: 0; text-align: right; ">
+                                    <div class="invoice-details" style="background-color: #f4f4f4;">
+                                        <address id="clientInfo">
+                                            <div id="invoiceTypeDisplay">
+                                                {% if avoir %}
+                                                    AVOIR - #00{{ avoir.id }}
+                                                {% else %}
+                                                AVOIR - #00{{ avoir.id }}
+                                                {% endif %}
+                                            </div>
+                                            <div id="factureBox" onclick="openTitleModal()"></div>
+                                        </address>
+                                    </div>
+                                </div>
+    					</div>
+    					<div class="invoice-body">
+    						<!-- Row start -->
+    						<div class="row gutters" style="margin-bottom:50px">
+    							<div class="col-lg-12 col-md-12 col-sm-12" >
+    								<div class="table-responsive">
+                                        {% if articles %}    
+
+    									<table class="table custom-table m-0" style="width: 952px ; background-color: #f4f4f4; margin-left:15px " >  
+    										<thead>
+    											<tr>
+    												<th>Items</th>
+													<th>Product ID</th>
+													<th>Quantities</th>
+													<th>Unit Price</th>
+													<th>Subtotal</th>
+    											</tr>
+    										</thead>
+    										<tbody >  
+                                              {% for article in articles %}  
+                                              
+    											<tr   style="background-color: #f4f4f4;" 
+                                                onmouseover="this.style.backgroundColor='rgb(50, 224, 41)'; this.style.fontWeight='bold';" 
+                                                onmouseout="this.style.backgroundColor='#f4f4f4'; this.style.fontWeight='normal';" >
+                                                    <td >{{ article.designation }}</td   >
+													<td  >{{ article.id }}</td >  
+													<td> {{ article.quantite }}</td   >
+													<td >{{ article.unit_price }}</td>
+													<td >{{ article.get_total }}</td  >
+    											</tr>
+                                               {% endfor %} 
+                                               <tr style=" background-color: #f4f4f4;                                          background-color: #f4f4f4;" 
+                                               onmouseover="this.style.backgroundColor='#f4f4f4';  this.style.fontWeight='bold';"
+                                               onmouseout="this.style.backgroundColor='#f4f4f4'; this.style.fontWeight='normal';"
+                                             > 
+    												<td>
+                                                        Comment:   <textarea class="form-control" name="comment" id="comment" cols="30" rows="1"></textarea>                                                        
+                                                    </td>
+    												<td colspan="2">
+														<p>
+															Subtotal<br>
+															Shipment &amp; Handling<br>
+															Tax<br>
+														</p>
+    													<h5 class="text-success" style="color: yellow" ><strong>Total</strong></h5>
+    												</td>			
+    												<td>
+    													<p>
+                                                            <span id="totalAmount">0</span> DT
+    														<!-- {{obj.get_total}} FCFA -->
+                                                            <br>
+    														00.00 DT  <br>
+    														00.00 DT  <br>
+    													</p>
+    													<h5 class="text-success"><strong><span id="totalAmount">0</span> DT</strong></h5>
+    												</td>
+                                                    <td> 
+                                                        PAID:
+                                                        <img id="paidIcon" class="icon" 
+                                                             src="{% static 'images/icon-yes.svg' if obj.paid else 'images/icon-no.svg' %}" 
+                                                             alt="{{ obj.paid }}" 
+                                                             style="cursor: pointer;" 
+                                                             onclick="togglePaidStatus({{ obj.id }})">
+                                                    </td>  
+                                                    
+                                                    </td>
+                            
+    											</tr>
+    										</tbody>
+    									</table>
+                                        {% else %}
+                                            <p>Aucun article ajouté.</p>
+                                        {% endif %}
+                                        
+                                        <a href="{% url 'creer_avoir_etape2' %}" style="margin-left: 15px;"  >Ajouter des articles</a>
+
+                                        <!-- <button type="submit" name="submit" class="btn btn-primary">Créer l'avoir</button> -->
+                                        {% if not articles %}
+                                            <button type="submit" class="btn btn-primary" disabled>Valider l'avoir</button>
+                                        {% else %}
+                                            <button type="submit" class="btn btn-primary">Valider l'avoir</button>
+                                        {% endif %}
+                                    
+    								</div>
+    							</div>
+    						</div>
+    
+    					</div>
+         
+                        <div class="invoice-footer" style="text-align: center; font-size: 0.65rem; color: #666; margin-left:15px ; margin-top:20px ; padding-bottom: 10px">
+                            Cet avoir a été générée automatiquement par NG-FACT.
+                            Toute reproduction partielle ou totale est strictement interdite sans autorisation préalable.
+                            NG-FACT est une solution développée par NG Multimedia. © 2025 Tous droits réservés.             NG Multimedia ne peut être tenu responsable en cas d'erreurs de saisie ou de calcul effectuées par l'utilisateur. 
+                            TVA non applicable – article 293 B du CGI (à adapter selon le pays et la situation).
+                            Remerciements aux clients et fournisseurs.
+                        </div>
+                    
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+
+</form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const customerSelect = document.getElementById('customer');
+        const invoiceSelect = document.getElementById('invoice');
+    
+        customerSelect.addEventListener('change', function () {
+            const customerId = this.value;
+            
+            invoiceSelect.innerHTML = '<option value="">Chargement...</option>';
+            invoiceSelect.disabled = true; // Empêcher la sélection pendant le chargement
+    
+            if (customerId) {
+                fetch(`/api/invoices/?customer_id=${customerId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur lors du chargement des factures');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        invoiceSelect.innerHTML = '<option value="">Aucune facture (avoir autonome)</option>';
+                        
+                        if (data.length === 0) {
+                            const noInvoiceOption = document.createElement('option');
+                            noInvoiceOption.textContent = 'Aucune facture disponible pour ce client';
+                            noInvoiceOption.disabled = true;
+                            invoiceSelect.appendChild(noInvoiceOption);
+                        } else {
+                            data.forEach(invoice => {
+                                const option = document.createElement('option');
+                                option.value = invoice.id;
+                                option.textContent = `Facture #${invoice.numero_facture} - ${invoice.total} DT`;
+                                invoiceSelect.appendChild(option);
+                            });
+                        }
+    
+                        invoiceSelect.disabled = false;
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        invoiceSelect.innerHTML = '<option value="">Erreur de chargement</option>';
+                        invoiceSelect.disabled = true;
+                    });
+            } else {
+                invoiceSelect.innerHTML = '<option value="">Aucune facture (avoir autonome)</option>';
+                invoiceSelect.disabled = false;
+            }
+        });
+    });
+    </script>
+    
+<!-- JavaScript pour charger les factures dynamiquement -->
+<!-- <script>
+document.getElementById('customer').addEventListener('change', function() {
+    const customerId = this.value;
+    const invoiceSelect = document.getElementById('invoice');
+    
+    invoiceSelect.innerHTML = '<option value="">Aucune facture</option>';
+    
+    if (customerId) {
+        fetch(`/api/invoices/?customer_id=${customerId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(invoice => {
+                    const option = document.createElement('option');
+                    option.value = invoice.id;
+                    option.textContent = `Facture #${invoice.numero_facture} - ${invoice.total} €`;
+                    invoiceSelect.appendChild(option);
+                });
+            });
+    }
+});
+
+
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    function updateClientInfo() {
+        const select = document.getElementById('clientSelect');
+        const selectedOption = select.options[select.selectedIndex];
+    
+        const nom = selectedOption.text;
+        const adresse = selectedOption.getAttribute('data-adresse');
+        const ville = selectedOption.getAttribute('data-ville');
+    
+        const infoDiv = document.getElementById('clientInfo');
+        infoDiv.innerHTML = `${nom}<br>${adresse}, ${ville}, Tunisie`;
+    }
+    </script>
+    
+
+<!-- PAY4E IMPAYE -->
+
+<script>
+    function togglePaidStatus(invoiceId) {
+        fetch(`/invoices/${invoiceId}/toggle-paid/`, {  // ← CORRIGÉ ICI
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            const icon = document.getElementById('paidIcon');
+            if (data.paid) {
+                icon.src = "{% static 'images/icon-yes.svg' %}";
+                icon.alt = "True";
+            } else {
+                icon.src = "{% static 'images/icon-no.svg' %}";
+                icon.alt = "False";
+            }
+        })
+        .catch(error => console.error('Erreur:', error));
+    }
+
+    // Fonction CSRF
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+        
+
+
+<!-- 
+INOIVE DETAILS ET DATE-->
+
+<script>
+    const selectElement = document.getElementById("invoice");
+    const displayElement = document.getElementById("invoiceTypeDisplay");
+    const dateBox = document.getElementById("factureBox");
+
+    const labels = {
+        R: "RECEIPT",
+        P: "PROFORMA INVOICE",
+        I: "INVOICE"
+    };
+    function getFormattedToday() {
+    const today = new Date();
+    const jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    const mois = [
+        "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+        "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+    ];
+
+    const jourSemaine = jours[today.getDay()];
+    const jour = today.getDate();
+    const moisNom = mois[today.getMonth()];
+    const annee = today.getFullYear();
+    const heures = String(today.getHours()).padStart(2, '0');
+    const minutes = String(today.getMinutes()).padStart(2, '0');
+
+    return `${jourSemaine}, Le ${jour} ${moisNom} ${annee} ${heures}:${minutes}`;
+}
+
+
+    // function getFormattedToday() {
+    //     const today = new Date();
+    //     const jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    //     const mois = [
+    //         "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+    //         "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+    //     ];
+
+    //     const jour = today.getDate();
+    //     const moisNom = mois[today.getMonth()];
+    //     const annee = today.getFullYear();
+    //     const heures = String(today.getHours()).padStart(2, '0');
+    //     const minutes = String(today.getMinutes()).padStart(2, '0');
+
+    //     return `${jour} ${moisNom} ${annee} ${heures}:${minutes}`;
+    // }
+
+    selectElement.addEventListener("change", function () {
+        const selectedValue = this.value;
+        const selectedLabel = labels[selectedValue] || "Type de facture non défini";
+
+        // Met à jour le type
+        displayElement.innerHTML = `${selectedLabel}`;
+
+        // Met à jour la date
+        // dateBox.innerHTML = `Xxxxx, Le ${getFormattedToday()}`;
+        dateBox.innerHTML = getFormattedToday();
+
+    });
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--total-->
+    <script>
+        function calculerTotal() {
+            let total = 0;
+            document.querySelectorAll("#invoiceBody tr").forEach(function (row) {
+                let cells = row.getElementsByTagName("td"); 
+                let lastCell = cells[cells.length - 1]; // Prend la dernière colonne
+                total += parseFloat(lastCell.innerText) || 0;
+            });
+            document.getElementById("totalAmount").innerText = total.toFixed(2);
+        }
+
+        document.addEventListener("DOMContentLoaded", calculerTotal);
+    </script>
+
+
+    <!--ENTREPRISE-->
+    <script>
+        function openEntrepriseModal() {
+            document.getElementById("entrepriseModal").style.display = "block";
+        }
+    
+        function closeEntrepriseModal() {
+            document.getElementById("entrepriseModal").style.display = "none";
+        }
+    
+        function saveEntreprise() {
+            let nom = document.getElementById("entrepriseNom").value;
+            let adresse = document.getElementById("entrepriseAdresse").value;
+    
+            if (nom && adresse) {
+                let entrepriseBox = document.getElementById("entrepriseBox");
+                entrepriseBox.innerText = `${nom}\n${adresse}`;
+    
+                // Sauvegarde dans le localStorage pour garder les infos
+                localStorage.setItem("entreprise_nom", nom);
+                localStorage.setItem("entreprise_adresse", adresse);
+            }
+    
+            closeEntrepriseModal();
+        }
+    
+        // Charger les infos enregistrées au chargement de la page
+        document.addEventListener("DOMContentLoaded", function() {
+            let nom = localStorage.getItem("entreprise_nom");
+            let adresse = localStorage.getItem("entreprise_adresse");
+    
+            if (nom && adresse) {
+                let entrepriseBox = document.getElementById("entrepriseBox");
+                entrepriseBox.innerText = `${nom}\n${adresse}`;
+            }
+        });
+    </script>
+    
+
+    <!--DAATE ET JOUR-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fonction pour obtenir le jour et la date du jour au format "Lundi, 21-03-2025"
+            function getTodayDateWithDay() {
+                let today = new Date();
+                let jours = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+                let dayName = jours[today.getDay()]; // Récupère le jour de la semaine
+    
+                let day = today.getDate().toString().padStart(2, '0'); // Ajoute un 0 si nécessaire
+                let month = (today.getMonth() + 1).toString().padStart(2, '0'); // Janvier = 0
+                let year = today.getFullYear();
+    
+                return `${dayName}, le ${day}-${month}-${year}`;
+            }
+    
+            function getTodayDate() {
+                let today = new Date();
+                let day = today.getDate().toString().padStart(2, '0');
+                let month = (today.getMonth() + 1).toString().padStart(2, '0');
+                let year = today.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+    
+            // Met à jour les divs avec la date et le jour
+            document.getElementById("documentBox").innerText = `DEVIS N° ${getTodayDate()}`;
+            document.getElementById("factureBox").innerText = `${getTodayDateWithDay()}`;
+        });
+    </script>
+    
+    <!-- LOGO -->
+    <script>
+        // document.getElementById('logo').addEventListener('change', function(event) {
+        //     const file = event.target.files[0]; // Récupérer le fichier sélectionné
+    
+        //     if (file) {
+        //         const reader = new FileReader();
+        //         reader.onload = function(e) {
+        //             const img = document.getElementById('logoPreview');
+        //             img.src = e.target.result; // Afficher l'image sélectionnée
+        //             img.style.display = 'block'; // Rendre visible l'aperçu
+        //         }
+        //         reader.readAsDataURL(file); // Lire l'image en base64
+        //     }
+        // });
+        document.getElementById('logoInput').addEventListener('change', function(event) {
+        const file = event.target.files[0]; // Récupérer le fichier sélectionné
+
+        if (file && file.type.startsWith('image/')) { // Vérifier que c'est bien une image
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('logoPreview');
+                img.src = e.target.result; // Afficher l'image sélectionnée
+                img.classList.remove('hidden'); // Afficher l’image
+
+                // Masquer l'icône 📷
+                document.getElementById('uploadIcon').style.display = 'none';
+            }
+            reader.readAsDataURL(file); // Lire l'image en base64
+        } else {
+            alert("Veuillez sélectionner une image valide !");
+        }
+        });
+    </script>
+
+<!--TITRE FACTURE-->
+<!-- <script>
+    function openTitleModal() {
+        document.getElementById('titleModal').style.display = 'block';
+    }
+    function closeTitleModal() {
+        document.getElementById('titleModal').style.display = 'none';
+    }
+    function saveTitle() {
+        var title = document.getElementById('titleInput').value;
+        if (title.trim() !== '') {
+            document.getElementById('titleBox').innerText = title;
+        }
+        closeTitleModal();
+    }
+</script> -->
+
+
+<script>
+    function openTitleModal() {
+        document.getElementById('titleModal').style.display = 'block';
+    }
+    function closeTitleModal() {
+        document.getElementById('titleModal').style.display = 'none';
+    }
+    function saveTitle() {
+        var title = document.getElementById('titleInput').value;
+        if (title.trim() !== '') {
+            document.getElementById('titleBox').innerText = title;
+        }
+        closeTitleModal();
+    }
+</script>
+
+<!-- <script>
+function openClientModal() {
+    document.getElementById('clientModal').style.display = 'block'; // Corrigé ici
+}
+
+function closeClientModal() {
+    document.getElementById('clientModal').style.display = 'none';
+}
+
+function saveClient() {
+    var clientText = document.getElementById('clientInput').value;
+    if (clientText.trim() !== '') {
+        document.getElementById('clientBox').innerHTML = clientText.replace(/\n/g, '<br>');
+    }
+    closeClientModal();
+}
+
+
+</script> -->
+<script>
+    function openClientModal() {
+        document.getElementById('clientModal').style.display = 'block';
+    }
+
+    function closeClientModal() {
+        document.getElementById('clientModal').style.display = 'none';
+    }
+
+    function updateClientBox() {
+        let select = document.getElementById("customerSelect");
+        let selectedOption = select.options[select.selectedIndex];
+
+        if (selectedOption.value) {
+            let nom = selectedOption.getAttribute("data-nom");
+            let adresse = selectedOption.getAttribute("data-adresse");
+            let type = selectedOption.getAttribute("data-type");
+            let siret = selectedOption.getAttribute("data-siret");
+
+            let clientHTML = `
+                <strong>${nom}</strong><br>
+                ${adresse}<br>
+                Type : ${type}
+            `;
+
+            // Affiche le SIRET uniquement si le client est professionnel
+            if (type.toLowerCase() === "professionnel" && siret) {
+                clientHTML += `<br>SIRET : ${siret}`;
+            }
+
+            document.getElementById("clientBox").innerHTML = clientHTML;
+        }
+
+        closeClientModal();
+    }
+</script>
+    <!-- {% csrf_token %}
+    <label>Titre :</label>
+    <input type="text" name="titre" required>
+
+    <label>Logo :</label>
+    <input type="file" name="logo">
+
+    <label>Client :</label>
+    <select name="customer">
+        {% for customer in customers %}
+            <option value="{{ customer.id }}">{{ customer.nom }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Suivant</button> -->
+<!-- 
+
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    
+        <label for="customer">Sélectionner un client :</label>
+        <select name="customer" id="customer" required>
+            {% for customer in customers %}
+                <option value="{{ customer.id }}">{{ customer.nom }} {{ customer.prenom }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="logo">Ajouter un logo (optionnel) :</label>
+        <input type="file" name="logo" id="logo">
+    
+        <h3>Articles ajoutés :</h3>
+        {% if articles %}
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Désignation</th>
+                        <th>Quantité</th>
+                        <th>Prix Unitaire</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles %}
+                        <tr>
+                            <td>{{ article.designation }}</td>
+                            <td>{{ article.quantite }}</td>
+                            <td>{{ article.prix_unitaire }}</td>
+                            <td>{{ article.total }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun article ajouté.</p>
+        {% endif %}
+    
+        <a href="{% url 'creer_facture_etape2' %}">Ajouter des articles</a>
+        <button type="submit">Créer la facture</button>
+    </form> -->
+    
+    
+<!-- </form> -->
+
+
+</body>
+</html>

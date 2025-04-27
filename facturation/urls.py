@@ -21,9 +21,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
-
-
-
+from .views import DashboardView
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -33,21 +32,28 @@ urlpatterns = [
     path("api/", include('facturation.api.urls')),
     path('api/', include('billing.urls')),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 ###
 urlpatterns += i18n_patterns(
     #...
-    path('', include('billing.urls')),  # Inclure les URLs de l'application billing
+    path('', include('landing.urls')),  # landing page à la racine
+    # path('billing/', include('billing.urls', namespace='invoices')),  # Inclure les URLs de l'application billing
+
+    path('billing/', include('billing.urls')),  # Inclure les URLs de l'application billing
     path('payments/', include('payments.urls')),    # Inclure les URLs de l'application payment
 
     path('education/', include('education.urls')),  # Cours d'éducation financière
     path('subscription/', include('subscription.urls')),  # Cours d'éducation financière
         
-        
-    path('auth/', include('authentication.urls')),
+    # path('auth/', include('authentication.urls')),
+    path('auth/', include('authentication.urls', namespace='authentication')),
+    # path("echeance/", include("echeance.urls")),
+    path("calendarapp/", include("calendarapp.urls")),
 
+    path("dashboard/", DashboardView.as_view(), name="dashboard"),
 
+    
 )
 
 

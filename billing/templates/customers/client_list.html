@@ -1,8 +1,207 @@
+{% extends 'invoices/base_invoices.html' %}
 
 
-<form method="GET" action="{% url 'client_list' %}">
+
+<!DOCTYPE html> 
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Factures</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+
+  
+    />
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px;
+        }
+
+        h1, h2 {
+            color: #1a1a1a;
+        }
+
+        form {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .form-control, .btn {
+            border-radius: 6px;
+        }
+
+        .btn-primary {
+            background-color: #21639e;
+            border-color: #21639e;
+        }
+
+        .btn-primary:hover {
+            background-color: #1b4f7f;
+            border-color: #1b4f7f;
+        }
+
+        .table {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .table thead {
+            background-color: #e9ecef;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #333;
+            vertical-align: middle;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .btn-sm {
+            margin-right: 5px;
+        }
+
+        .btn-info {
+            background-color: #0dcaf0;
+            border-color: #0dcaf0;
+        }
+
+        .btn-info:hover {
+            background-color: #0bb5d7;
+            border-color: #0bb5d7;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: black;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+            border-color: #bb2d3b;
+        }
+
+        .btn-success {
+            background-color: #198754;
+            border-color: #198754;
+        }
+
+        .btn-success:hover {
+            background-color: #157347;
+            border-color: #157347;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f5f9;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .mt-3 a {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .row > div {
+                margin-bottom: 15px;
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="input__row" style="text-align: center; margin-right:240px;">
+        <div class="input__group">
+            <h1 style="color: #21639e;">LISTE DES CLIENTS</h1><br><br>
+        </div>
+    </div>
+<form method="GET" action="{% url 'client_list' %}" class="mb-4 p-4 border rounded shadow-sm bg-light" style="width: 1000px; margin-bottom: 40px; ">
+
+    
+    <div class="row" style="width: 1000px; display: flex; flex-direction: row; align-items: center;">
+        <!-- <div class="col-md-4" style="width: 500px; margin-right: 40px; margin-left: 40px; margin-top: 20px;">
+            <label for="search" class="form-label" style="color: #21639e; margin-top: 0px; ">Rechercher par nom</label>
+            <input type="text" name="search" class="form-control" placeholder="Rechercher par nom ou email..." value="{{ search_query }}"            style="width: 300px; border-color: lightgray;">
+        </div> -->
+        <div class="col-md-4" style="width: 1000px; margin-right: 40px; margin-left: 40px;">
+            <label for="search" class="form-label" style="color: #21639e; ">Rechercher par client</label>
+            <input type="text" id="search" name="search" class="form-control" placeholder="Rechercher par client..." value="{{ search_query }}" style="width: 300px; border-color: lightgray;">
+        </div>
+    
+        <div class="row" style="width: 1000px; display: flex; flex-direction: row; align-items: center;">
+
+        <div class="form-check form-check-inline" style="display: flex; flex-direction: row;">
+            <label class="form-check-label" for="particulier" style="margin-top: 10px; margin-right: 5px;">Particulier</label>
+
+            <input class="form-check-input" type="checkbox" id="particulier" name="customer_type" value="particulier"  style="margin-top: 10px; "
+                {% if customer_type == 'particulier' %}checked{% endif %}>
+        </div>
+
+        <div class="form-check form-check-inline"  style="display: flex; flex-direction: row; margin-left: 30px;"></div>
+        <label class="form-check-label" for="professionnel" style="margin-top: 10px; margin-right: 5px;">Professionnel</label>
+
+        <input class="form-check-input" type="checkbox" id="professionnel" name="customer_type" value="professionnel"  style="margin-top: 10px; "
+            {% if customer_type == 'professionnel' %}checked{% endif %}>
+        </div>
+            <!-- <div class="col-md-3" style="width: 400px; ">
+                <label for="montant_filter" class="form-label" >Filtrer par montant</label>
+                <select id="montant_filter" name="montant_filter" class="form-control"  style=" border-color: lightgray;">
+                    <option value="">-- Filtrer par montant --</option>
+                    <option value="greater" {% if montant_filter == 'greater' %}selected{% endif %}>Supérieur à</option>
+                    <option value="less" {% if montant_filter == 'less' %}selected{% endif %}>Inférieur à</option>
+                    <option value="equal" {% if montant_filter == 'equal' %}selected{% endif %}>Égal à</option>
+                </select>
+            </div>
+            <div class="col-md-3" style="width: 400px; display: flex; flex-direction: column;margin-right: 40px;; ">
+                <label for="montant_value" class="form-label" style="margin-bottom: 3px;;">Montant</label>
+                <input type="number" id="montant_value" name="montant_value" class="form-control" placeholder="Montant..." value="{{ montant_value }}" style=" border-color: lightgray;">
+            </div> -->
+        <button type="submit" class="btn btn-primary w-100" style="margin-right: 40px; height: 10px; line-height: 1px; margin-top: 25px;">Submit</button>
+
+    </div>
+    </div>
+</form>
+<!-- <div class="form-check form-check-inline" style="display: flex; flex-direction: row; margin-right: 20px;">
+    <label class="form-check-label" for="particulier" style="margin-top: 20px; margin-right: 5px;">Particulier</label>
+
+    <input class="form-check-input" type="checkbox" id="particulier" name="customer_type" value="particulier"
+           {% if customer_type == 'particulier' %}checked{% endif %}>
+</div> -->
+
+
+<!-- <form method="GET" action="{% url 'client_list' %}">
     <div class="input-group mb-3">
-        <input type="text" name="search" class="form-control" placeholder="Rechercher par nom ou email..." value="{{ search_query }}">
         <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
     </div>
 
@@ -18,12 +217,16 @@
         <label class="form-check-label" for="professionnel">Professionnel</label>
     </div>
     
-    <button type="submit" class="btn btn-primary">Filtrer</button>
 </form>
+ -->
 
+<div class="mt-3" style="display: flex; flex-direction: row; margin-bottom: 20px; margin-left:90px">
+    <a href="{% url 'download_factures_csv' %}?search={{ search_query }}&montant_filter={{ montant_filter }}&montant_value={{ montant_value }}" class="btn btn-success" style="background-color: #21639e;">Télécharger CSV</a>
+    <a href="{% url 'download_factures_pdf' %}?search={{ search_query }}&montant_filter={{ montant_filter }}&montant_value={{ montant_value }}" class="btn btn-danger"style="background-color:lightgray; color: black; "><strong>Télécharger PDF<strong></a>
+</div>
 
 <!-- Tableau des clients -->
-<table class="table table-striped">
+<table class="table table-striped"style="width: 1000px;margin-bottom: 40px; margin-left:90px">
     <thead>
         <tr>
             <th>ID</th>
@@ -50,7 +253,7 @@
             </td>
             <td>{{ customer.ville }}</td>
             <td>{{ customer.pays }}</td>
-            <td class="text-center">
+            <td class="text-center" style="display:flex; flex-direction: row;">
                 <a href="{% url 'edit_customer' customer.id %}" class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i></a>
                 <a href="{% url 'delete_customer' customer.id %}" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
             </td>
@@ -62,6 +265,37 @@
         {% endfor %}
     </tbody>
 </table>
+
+
+
+</body>
+</html>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- Pagination -->
 <nav style="margin-top: 200px;">

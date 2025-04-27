@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2><i class="fas fa-file-invoice"></i> Liste des avoirs</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Numéro</th>
+            <th>Client</th>
+            <th>Date</th>
+            <th>Montant</th>
+            <th>Facture liée</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for avoir in avoirs %}
+        <tr>
+            <td>{{ avoir.numero_invoice }}</td>
+            <td>{{ avoir.customer.nom }}</td>
+            <td>{{ avoir.invoice_date_time|date:"d/m/Y" }}</td>
+            <td class="text-danger">- {{ avoir.total }} TND</td>
+            <td>
+                {% if avoir.facture_liee %}
+                <a href="{% url 'detail_facture' facture_id=avoir.facture_liee.id %}">
+                    {{ avoir.facture_liee.numero_invoice }}
+                </a>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'detail_avoir' avoir_id=avoir.id %}" class="btn btn-sm btn-info">
+                    <i class="fas fa-eye"></i> Voir
+                </a>
+                <a href="{% url 'imprimer_avoir' avoir_id=avoir.id %}" class="btn btn-sm btn-primary">
+                    <i class="fas fa-print"></i> Imprimer
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center">Aucun avoir trouvé</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

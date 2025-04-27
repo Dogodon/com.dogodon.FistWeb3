@@ -1,0 +1,17 @@
+<h2>Détails de la facture #{{ avoir.id }}</h2>
+<table class="table">
+    <tr>
+        <th>Client</th>
+        <td>{{ avoir.customer.nom }}</td>
+    </tr>
+    <tr>
+        <th>Total</th>
+        <td>{{ avoir.total }} €</td>
+    </tr>
+    <tr>
+        <th>Date de création</th>
+        <td>{{ avoir.invoice_date_time|date:"d-m-Y H:i" }}</td>
+    </tr>
+
+</table>
+<a href="{% url 'list_avoir' %}" class="btn btn-primary">Retour à la liste</a>

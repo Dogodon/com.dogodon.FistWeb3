@@ -178,3 +178,59 @@ def creer_facture_etape2(request):
     articles = facture.article_set.all()
     return render(request, "facture_etape2.html", {"facture": facture, "articles": articles})
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # views.py
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
+# from rest_framework.permissions import IsAuthenticated
+# from rest_framework.authentication import SessionAuthentication
+
+# @api_view(['GET'])
+# def user_data_view(request):
+#     if request.user.is_authenticated:
+#         return Response({
+#             "username": request.user.username,
+#             "email": request.user.email,
+#             "invoices": list(Invoice.objects.filter(user=request.user).values())
+#         })
+#     return Response({"detail": "Non authentifié"}, status=401)
+
+
+# from django.shortcuts import redirect
+
+# def redirect_to_dashboard(request):
+#     session_id = request.COOKIES.get('sessionid')
+#     dashboard_url = f"http://localhost:8501/?sessionid={session_id}"
+#     return redirect(dashboard_url)
+
+
+# from rest_framework.decorators import api_view, permission_classes
+# from rest_framework.permissions import IsAuthenticated
+# from rest_framework.response import Response
+
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def user_data(request):
+#     user = request.user
+#     invoices = user.invoices.all().values()  # adapter selon ton modèle
+#     return Response({
+#         "username": user.username,
+#         "email": user.email,
+#         "invoices": list(invoices),
+#     })
+
+
